@@ -1,4 +1,5 @@
 import { RestaurantOpenHours } from "@/types";
+import { capitaliseFirstLetter } from "@/util/capitalise-first-letter";
 import { getNextOpenDay } from "@/util/get-next-open-day";
 import { getOpeningAndClosingTimes } from "@/util/get-open-and-closing-times";
 import { isStoreOpen } from "@/util/is-store-open";
@@ -16,15 +17,11 @@ const createLabelForNextOpenDay = (
     nextOpenDay
   );
 
-  if (!nextOpenDayHoursFormatted) return "";
+  if (!nextOpenDay || !nextOpenDayHoursFormatted) return "";
 
-  const diff = now
-    .diff(nextOpenDayHoursFormatted?.openingTime, ["days", "hours", "minutes"])
-    .toObject();
-
-  const relative = now.plus(diff).toRelative();
-
-  return relative ? `Re-opens ${relative}` : "";
+  return `Re-opens at ${nextOpenDayHoursFormatted.openingTime.toFormat(
+    "h:mm a"
+  )} on ${capitaliseFirstLetter(nextOpenDay)}`;
 };
 
 const getMetaForStatus = (hours?: RestaurantOpenHours) => {
@@ -55,7 +52,7 @@ const getMetaForStatus = (hours?: RestaurantOpenHours) => {
     return {
       color: "text-green-600",
       label: `Closes ${timeUntilClosure}`,
-      text: `Open until ${todaysHoursFormatted.closingTime.toFormat("HH:mm")}`,
+      text: `Open until ${todaysHoursFormatted.closingTime.toFormat("h:mm a")}`,
     };
   }
 

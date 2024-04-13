@@ -15,8 +15,6 @@ export const Time = () => {
   }, []);
 
   return (
-    <>
-      {DateTime.fromJSDate(date).setZone("Europe/London").toFormat("HH:mm:ss")}
-    </>
+    <>{DateTime.fromJSDate(date).setZone("Europe/London").toFormat("h:mm a")}</>
   );
 };

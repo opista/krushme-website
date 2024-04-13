@@ -2,7 +2,7 @@
 
 import { CircleMarker, useMap } from "react-leaflet";
 import { RestaurantData } from "@/types";
-import RestaurantPopup from "./restaurant-poup";
+import RestaurantPopup from "./restaurant-popup";
 import mapKrushemStatusToMeta from "@/util/map-krushem-status-to-meta";
 import setRadiusForZoom from "@/util/set-radius-for-zoom";
 

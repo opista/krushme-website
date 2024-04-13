@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import MapOverlay from "@/components/map-overlay";
+import { Time } from "@/components/time";
 
 const RestaurantMap = dynamic(() => import("@/components/restaurant-map"), {
   ssr: false,
@@ -59,6 +60,9 @@ function Home() {
             <p className="p-0 leading-none text-sm">
               Is your local KFC Krushem machine broken?
             </p>
+          </div>
+          <div className="hidden sm:block">
+            <Time />
           </div>
         </div>
 

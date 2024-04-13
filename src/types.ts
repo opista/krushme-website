@@ -4,6 +4,19 @@ export enum KrushemMachineStatus {
   Unknown = "unknown",
 }
 
+export type RestaurantOpenHours = {
+  type: string;
+  monday: OpenHoursDayOfWeek;
+  tuesday: OpenHoursDayOfWeek;
+  wednesday: OpenHoursDayOfWeek;
+  thursday: OpenHoursDayOfWeek;
+  friday: OpenHoursDayOfWeek;
+  saturday: OpenHoursDayOfWeek;
+  sunday: OpenHoursDayOfWeek;
+};
+
+export type OpenHoursDayOfWeek = { open: number; close: number };
+
 export type RestaurantData = {
   id: string;
   address: string;
@@ -14,10 +27,7 @@ export type RestaurantData = {
   krushemMachineStatus: KrushemMachineStatus;
   lastChecked: Date;
   link: string;
-  isOpenCollection: boolean | null;
-  isOpenDelivery: boolean | null;
-  isOpenDriveThru: boolean | null;
-  isOpenStandard: boolean | null;
+  hours: RestaurantOpenHours[];
   name: string;
 };
 

@@ -17,19 +17,19 @@ export default function RestaurantPopup({
       </div>
       <div className="flex items-center">
         <span className="w-20">Dining In</span>{" "}
-        <OpenOrClosed isOpen={restaurant.isOpenStandard} />
+        <OpenOrClosed hours={restaurant.hours} orderMode="Standard" />
       </div>
       <div className="flex items-center">
         <span className="w-20">Collection</span>{" "}
-        <OpenOrClosed isOpen={restaurant.isOpenCollection} />
+        <OpenOrClosed hours={restaurant.hours} orderMode="Collection" />
       </div>
       <div className="flex items-center">
         <span className="w-20">Delivery</span>{" "}
-        <OpenOrClosed isOpen={restaurant.isOpenDelivery} />
+        <OpenOrClosed hours={restaurant.hours} orderMode="Delivery" />
       </div>
       <div className="mb-2 flex items-center">
         <span className="w-20">Drive Thru</span>{" "}
-        <OpenOrClosed isOpen={restaurant.isOpenDriveThru} />
+        <OpenOrClosed hours={restaurant.hours} orderMode="DriveThru" />
       </div>
       <a className="inline-block mb-2" href={restaurant.link} target="_blank">
         Order online

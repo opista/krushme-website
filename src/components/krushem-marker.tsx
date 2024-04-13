@@ -11,21 +11,20 @@ type Props = {
 };
 
 export default function KrushemMarker({ restaurant }: Props) {
-  const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus)
-  const map = useMap()
+  const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
+  const map = useMap();
 
   const radius = setRadiusForZoom(map.getZoom());
 
   return (
     <CircleMarker
-        center={[restaurant.coords.latitude, restaurant.coords.longitude]}
-        color={krushemMeta.colorRgb}
-        fillOpacity={1}
-        radius={radius}
-        stroke={false}
+      center={[restaurant.coords.latitude, restaurant.coords.longitude]}
+      color={krushemMeta.colorRgb}
+      fillOpacity={1}
+      radius={radius}
+      stroke={false}
     >
-       <RestaurantPopup restaurant={restaurant} />
-
-      </CircleMarker>
+      <RestaurantPopup restaurant={restaurant} />
+    </CircleMarker>
   );
 }

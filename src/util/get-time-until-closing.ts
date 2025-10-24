@@ -58,7 +58,9 @@ export const getTimeUntilClosing = (
  * Examples: "in 46 minutes", "in 2 hours", "in 1 hour 30 minutes"
  */
 const formatTimeUntilClosing = (diff: any): string => {
-  const human = diff.toHuman();
+  // Round the duration to avoid decimal places
+  const roundedDiff = diff.mapUnits((x: number) => Math.round(x));
+  const human = roundedDiff.toHuman();
   // Clean up Luxon's output: remove commas and zero values
   const cleaned = human
     .replace(/,/g, "") // Remove commas

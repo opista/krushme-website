@@ -57,5 +57,15 @@ export const getTimeUntilClosing = (
  * Formats a duration into a human-friendly "time until" string using Luxon's built-in toHuman().
  * Examples: "in 46 minutes", "in 2 hours", "in 1 hour 30 minutes"
  */
-const formatTimeUntilClosing = (diff: any): string =>
-  `in ${diff.toHuman({ showZeros: false })}`;
+const formatTimeUntilClosing = (diff: any): string => {
+  const human = diff.toHuman();
+  // Clean up Luxon's output: remove commas and zero values
+  const cleaned = human
+    .replace(/,/g, "") // Remove commas
+    .replace(/\b0 hours\b/g, "") // Remove "0 hours" (word boundary)
+    .replace(/\b0 minutes\b/g, "") // Remove "0 minutes" (word boundary)
+    .replace(/\s+/g, " ") // Normalize spaces
+    .trim();
+
+  return `in ${cleaned}`;
+};

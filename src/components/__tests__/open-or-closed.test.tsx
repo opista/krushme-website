@@ -256,5 +256,31 @@ describe("OpenOrClosed", () => {
       const element = screen.getByText("Closed");
       expect(element).toHaveAttribute("title");
     });
+
+    it("should show today's opening time when closed early morning on an open day", () => {
+      // Mock current time to be Saturday 1:06 AM - after Friday's 23:00 closing, before Saturday's 10:00 opening
+      const mockTime = DateTime.fromISO("2024-01-20T01:06:00", {
+        zone: "Europe/London",
+      });
+      jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
+
+      const hours: RestaurantOpenHours[] = [
+        {
+          type: "Standard",
+          monday: { open: 1000, close: 2200 },
+          tuesday: { open: 1000, close: 2200 },
+          wednesday: { open: 1000, close: 2200 },
+          thursday: { open: 1000, close: 2200 },
+          friday: { open: 1000, close: 2300 }, // Closed Friday at 23:00
+          saturday: { open: 1000, close: 2200 }, // Opens Saturday at 10:00
+          sunday: { open: 1000, close: 2200 },
+        },
+      ];
+
+      render(<OpenOrClosed hours={hours} orderMode="standard" />);
+
+      const element = screen.getByText("Closed");
+      expect(element).toHaveAttribute("title", "Re-opens at 10:00 AM on Saturday");
+    });
   });
 });

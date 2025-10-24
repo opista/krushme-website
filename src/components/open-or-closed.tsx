@@ -12,6 +12,20 @@ const createLabelForNextOpenDay = (
 ) => {
   if (!now.weekdayLong) return "";
 
+  // First check if today is an open day
+  const todaysHoursFormatted = getOpeningAndClosingTimes(
+    hours,
+    now.weekdayLong
+  );
+
+  if (todaysHoursFormatted) {
+    // Today is an open day, show today's opening time
+    return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat(
+      "h:mm a"
+    )} on ${capitaliseFirstLetter(now.weekdayLong)}`;
+  }
+
+  // Today is not open, find the next open day
   const nextOpenDay = getNextOpenDay(now.weekdayLong, hours);
   const nextOpenDayHoursFormatted = getOpeningAndClosingTimes(
     hours,

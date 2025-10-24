@@ -30,6 +30,14 @@ export const getOpeningAndClosingTimes = (
   const openingTime = now.set(openingHours);
   const potentialClosingTime = now.set(closingHours);
 
+  // Special case: if close is 0 (midnight), treat it as end of day (24:00)
+  if (openHoursForDay.close === 0) {
+    return {
+      openingTime,
+      closingTime: openingTime.endOf("day"), // This gives us 23:59:59.999
+    };
+  }
+
   if (potentialClosingTime <= openingTime) {
     return {
       openingTime,

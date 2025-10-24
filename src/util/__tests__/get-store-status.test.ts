@@ -20,7 +20,7 @@ describe("getStoreStatus", () => {
 
   it("should return unavailable status when hours is undefined", () => {
     const result = getStoreStatus(undefined);
-    
+
     expect(result).toEqual({
       color: "text-gray-500",
       label: "",
@@ -48,7 +48,7 @@ describe("getStoreStatus", () => {
     };
 
     const result = getStoreStatus(openHours);
-    
+
     expect(result).toEqual({
       color: "text-gray-500",
       label: "",
@@ -76,7 +76,7 @@ describe("getStoreStatus", () => {
       jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
 
       const result = getStoreStatus(openHours);
-      
+
       expect(result.color).toBe("text-green-600");
       expect(result.text).toBe("Open until 10:00 PM");
       expect(result.label).toContain("Closes");
@@ -103,7 +103,7 @@ describe("getStoreStatus", () => {
       jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
 
       const result = getStoreStatus(openHours);
-      
+
       expect(result.color).toBe("text-red-600");
       expect(result.text).toBe("Closed");
       expect(result.label).toContain("Re-opens");
@@ -128,7 +128,7 @@ describe("getStoreStatus", () => {
       };
 
       const result = getStoreStatus(hours);
-      
+
       expect(result.color).toBe("text-red-600");
       expect(result.text).toBe("Closed");
       expect(result.label).toBe("Re-opens at 10:00 AM");
@@ -153,10 +153,35 @@ describe("getStoreStatus", () => {
       };
 
       const result = getStoreStatus(hours);
-      
+
       expect(result.color).toBe("text-red-600");
       expect(result.text).toBe("Closed");
       expect(result.label).toBe("Re-opens at 11:30 AM on Saturday");
+    });
+
+    it("should show next day's opening time when today is not an open day", () => {
+      // Mock current time to be Sunday (assuming Sunday is closed)
+      const mockTime = DateTime.fromISO("2024-01-21T15:00:00", {
+        zone: "Europe/London",
+      });
+      jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
+
+      const hours: RestaurantOpenHours = {
+        type: "Standard",
+        monday: { open: 1000, close: 2200 },
+        tuesday: { open: 1000, close: 2200 },
+        wednesday: { open: 1000, close: 2200 },
+        thursday: { open: 1000, close: 2200 },
+        friday: { open: 1000, close: 2200 },
+        saturday: { open: 1000, close: 2200 },
+        // Sunday is not included, so it's effectively closed
+      };
+
+      const result = getStoreStatus(hours);
+
+      expect(result.color).toBe("text-red-600");
+      expect(result.text).toBe("Closed");
+      expect(result.label).toBe("Re-opens at 10:00 AM on Monday");
     });
   });
 
@@ -180,7 +205,7 @@ describe("getStoreStatus", () => {
       jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
 
       const result = getStoreStatus(openHours);
-      
+
       expect(result.color).toBe("text-green-600");
       expect(result.text).toBe("Open until 11:59 PM");
       expect(result.label).toContain("Closes");
@@ -205,7 +230,7 @@ describe("getStoreStatus", () => {
       jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
 
       const result = getStoreStatus(openHours);
-      
+
       expect(result.color).toBe("text-green-600");
       expect(result.text).toBe("Open until 1:00 AM");
       expect(result.label).toContain("Closes");

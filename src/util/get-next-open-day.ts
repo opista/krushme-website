@@ -20,9 +20,10 @@ export const getNextOpenDay = (day: string, hours: RestaurantOpenHours) => {
     ...days.slice(0, dayIndex + 1),
   ];
 
-  return sortedDays.find(
-    (sortedDay) =>
-      !!(hours[sortedDay as keyof RestaurantOpenHours] as OpenHoursDayOfWeek)
-        .open
-  );
+  return sortedDays.find((sortedDay) => {
+    const dayHours = hours[
+      sortedDay as keyof RestaurantOpenHours
+    ] as OpenHoursDayOfWeek;
+    return dayHours && dayHours.open;
+  });
 };

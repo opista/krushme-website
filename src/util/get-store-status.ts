@@ -56,11 +56,20 @@ export const getStoreStatus = (hours?: RestaurantOpenHours): StoreStatus => {
 
   const isOpen = isStoreOpen(hours);
 
-  if (!hours || !now.weekdayLong || !todaysHoursFormatted || isOpen === null) {
+  if (!hours || !now.weekdayLong) {
     return {
       color: "text-gray-500",
       label: "",
       text: "Unavailable",
+    };
+  }
+
+  // If isOpen is null, it means today is not an open day (store is closed)
+  if (isOpen === null) {
+    return {
+      color: "text-red-600",
+      label: createLabelForNextOpenDay(now, hours),
+      text: "Closed",
     };
   }
 

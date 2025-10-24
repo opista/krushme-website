@@ -280,7 +280,10 @@ describe("OpenOrClosed", () => {
       render(<OpenOrClosed hours={hours} orderMode="standard" />);
 
       const element = screen.getByText("Closed");
-      expect(element).toHaveAttribute("title", "Re-opens at 10:00 AM on Saturday");
+      expect(element).toHaveAttribute(
+        "title",
+        "Re-opens at 10:00 AM on Saturday"
+      );
     });
   });
 });

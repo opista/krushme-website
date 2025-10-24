@@ -133,6 +133,31 @@ describe("getStoreStatus", () => {
       expect(result.text).toBe("Closed");
       expect(result.label).toBe("Re-opens at 10:00 AM");
     });
+
+    it("should show next day's opening time when closed late night", () => {
+      // Mock current time to be Friday 23:59 - after Friday's closing, before Saturday's opening
+      const mockTime = DateTime.fromISO("2024-01-19T23:59:00", {
+        zone: "Europe/London",
+      });
+      jest.spyOn(DateTime, "now").mockReturnValue(mockTime);
+
+      const hours: RestaurantOpenHours = {
+        type: "Standard",
+        monday: { open: 1000, close: 2200 },
+        tuesday: { open: 1000, close: 2200 },
+        wednesday: { open: 1000, close: 2200 },
+        thursday: { open: 1000, close: 2200 },
+        friday: { open: 1000, close: 2300 }, // Closed Friday at 23:00
+        saturday: { open: 1130, close: 2200 }, // Opens Saturday at 11:30 AM
+        sunday: { open: 1000, close: 2200 },
+      };
+
+      const result = getStoreStatus(hours);
+      
+      expect(result.color).toBe("text-red-600");
+      expect(result.text).toBe("Closed");
+      expect(result.label).toBe("Re-opens at 11:30 AM on Saturday");
+    });
   });
 
   describe("Edge cases", () => {

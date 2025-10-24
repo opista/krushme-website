@@ -18,18 +18,21 @@ const createLabelForNextOpenDay = (
 ): string => {
   if (!now.weekdayLong) return "";
 
-  // First check if today is an open day
+  // Check if today is an open day
   const todaysHoursFormatted = getOpeningAndClosingTimes(
     hours,
     now.weekdayLong
   );
 
   if (todaysHoursFormatted) {
-    // Today is an open day, show today's opening time without day name
-    return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat("h:mm a")}`;
+    // If we're before today's opening time, show today's opening time without day name
+    if (now < todaysHoursFormatted.openingTime) {
+      return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat("h:mm a")}`;
+    }
+    // If we're after today's closing time, we need to find the next open day
   }
 
-  // Today is not open, find the next open day
+  // Find the next open day (either because today is not open, or we're past today's closing)
   const nextOpenDay = getNextOpenDay(now.weekdayLong, hours);
   const nextOpenDayHoursFormatted = getOpeningAndClosingTimes(
     hours,

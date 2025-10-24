@@ -19,10 +19,8 @@ const createLabelForNextOpenDay = (
   );
 
   if (todaysHoursFormatted) {
-    // Today is an open day, show today's opening time
-    return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat(
-      "h:mm a"
-    )} on ${capitaliseFirstLetter(now.weekdayLong)}`;
+    // Today is an open day, show today's opening time without day name
+    return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat("h:mm a")}`;
   }
 
   // Today is not open, find the next open day

@@ -282,7 +282,7 @@ describe("OpenOrClosed", () => {
       const element = screen.getByText("Closed");
       expect(element).toHaveAttribute(
         "title",
-        "Re-opens at 10:00 AM on Saturday"
+        "Re-opens at 10:00 AM"
       );
     });
   });

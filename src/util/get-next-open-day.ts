@@ -20,8 +20,6 @@ export const getNextOpenDay = (day: string, hours: RestaurantOpenHours) => {
     ...days.slice(0, dayIndex + 1),
   ];
 
-  console.log(sortedDays);
-
   return sortedDays.find(
     (sortedDay) =>
       !!(hours[sortedDay as keyof RestaurantOpenHours] as OpenHoursDayOfWeek)

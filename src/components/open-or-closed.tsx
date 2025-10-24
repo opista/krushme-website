@@ -2,6 +2,7 @@ import { RestaurantOpenHours } from "@/types";
 import { capitaliseFirstLetter } from "@/util/capitalise-first-letter";
 import { getNextOpenDay } from "@/util/get-next-open-day";
 import { getOpeningAndClosingTimes } from "@/util/get-open-and-closing-times";
+import { getTimeUntilClosing } from "@/util/get-time-until-closing";
 import { isStoreOpen } from "@/util/is-store-open";
 import { DateTime } from "luxon";
 
@@ -43,17 +44,15 @@ const getMetaForStatus = (hours?: RestaurantOpenHours) => {
   }
 
   if (isOpen) {
-    const diff = todaysHoursFormatted.closingTime
-      .diff(now, ["hours", "minutes"])
-      .toObject();
+    const timeInfo = getTimeUntilClosing(hours, now);
 
-    const timeUntilClosure = now.plus(diff).toRelative();
-
-    return {
-      color: "text-green-600",
-      label: `Closes ${timeUntilClosure}`,
-      text: `Open until ${todaysHoursFormatted.closingTime.toFormat("h:mm a")}`,
-    };
+    if (timeInfo) {
+      return {
+        color: "text-green-600",
+        label: `Closes ${timeInfo.timeUntilClosing}`,
+        text: `Open until ${timeInfo.closingTime.toFormat("h:mm a")}`,
+      };
+    }
   }
 
   return {

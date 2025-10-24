@@ -80,7 +80,7 @@ function Home() {
           <span>
             <a
               className="inline-block p-3 pr-0 underline hover:underline-offset-2 hover:text-gray-900 text-sm font-bold"
-              href="mailto:contact@krushme.co.uk"
+              href="mailto:krushme@opista.com"
             >
               Contact
             </a>

@@ -34,7 +34,6 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     fetch("/api/stats")
       .then((res) => res.json())
       .then((data: ApiResponse) => setData(data))

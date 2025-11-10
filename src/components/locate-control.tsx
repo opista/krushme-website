@@ -63,7 +63,7 @@ export default function LocateControl() {
 
     const button = new LocateButton();
     map.addControl(button);
-  }, []);
+  }, [map]);
 
   return null;
 }

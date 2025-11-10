@@ -60,7 +60,7 @@ export default function MapKeyControl() {
 
     const control = new KeyControl();
     map.addControl(control);
-  }, [stats]);
+  }, [map, setFilter, stats]);
 
   return null;
 }

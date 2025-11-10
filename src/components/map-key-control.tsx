@@ -11,7 +11,7 @@ const createListItem = (
 ) => {
   const item = leaflet.DomUtil.create(
     "li",
-    "my-1 border rounded-md border-gray-300 hover-hover:hover:bg-gray-100",
+    "my-1 border rounded-md border-gray-300 hover:bg-gray-100 cursor-pointer",
     container
   );
   item.innerHTML = `<button class="flex items-center w-full py-2 px-3"><div class="${color} w-3 h-3 rounded-full mr-2"></div> ${text}</button>`;

@@ -1,11 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-kfc: #e3012b;
+  --font-friz: "Friz Quadrata Std", var(--font-serif);
+}
 
 @font-face {
   font-family: 'Friz Quadrata Std';
   src: url('/fonts/FrizQuadrataStd-Italic.woff2') format('woff2'),
-      url('/fonts/FrizQuadrataStd-Italic.woff') format('woff');
+    url('/fonts/FrizQuadrataStd-Italic.woff') format('woff');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -14,7 +17,7 @@
 @font-face {
   font-family: 'Friz Quadrata Std';
   src: url('/fonts/FrizQuadrataStd-BoldItalic.woff2') format('woff2'),
-      url('/fonts/FrizQuadrataStd-BoldItalic.woff') format('woff');
+    url('/fonts/FrizQuadrataStd-BoldItalic.woff') format('woff');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -23,7 +26,7 @@
 @font-face {
   font-family: 'Friz Quadrata Std';
   src: url('/fonts/FrizQuadrataStd-Bold.woff2') format('woff2'),
-      url('/fonts/FrizQuadrataStd-Bold.woff') format('woff');
+    url('/fonts/FrizQuadrataStd-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -32,7 +35,7 @@
 @font-face {
   font-family: 'Friz Quadrata Std';
   src: url('/fonts/FrizQuadrataStd.woff2') format('woff2'),
-      url('/fonts/FrizQuadrataStd.woff') format('woff');
+    url('/fonts/FrizQuadrataStd.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -41,7 +44,7 @@
 @font-face {
   font-family: 'Friz Quadrata Std';
   src: url('/fonts/FrizQuadrataStd-Italic.woff2') format('woff2'),
-      url('/fonts/FrizQuadrataStd-Italic.woff') format('woff');
+    url('/fonts/FrizQuadrataStd-Italic.woff') format('woff');
   font-weight: normal;
   font-style: italic;
   font-display: swap;

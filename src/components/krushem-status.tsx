@@ -2,8 +2,12 @@ import { KrushemMachineStatus } from "@/types";
 import mapKrushemStatusToMeta from "@/util/map-krushem-status-to-meta";
 import Image from "next/image";
 
-export default function KrushemStatus ({ status }: {status: KrushemMachineStatus }) {
-  const statusMeta = mapKrushemStatusToMeta(status)
+export default function KrushemStatus({
+  status,
+}: {
+  status: KrushemMachineStatus;
+}) {
+  const statusMeta = mapKrushemStatusToMeta(status);
   return (
     <div className={`flex align-center font-bold ${statusMeta.color}`}>
       <Image
@@ -13,7 +17,7 @@ export default function KrushemStatus ({ status }: {status: KrushemMachineStatus
         width={10}
         height={17}
       />
-      <span className="flex-0">{statusMeta.text}</span>
+      <span>{statusMeta.text}</span>
     </div>
   );
-};
+}

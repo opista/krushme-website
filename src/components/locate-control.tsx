@@ -46,7 +46,7 @@ export default function LocateControl() {
         );
         const button = leaflet.DomUtil.create(
           "a",
-          "leaflet-control-button cursor-pointer !flex justify-center items-center",
+          "leaflet-control-button cursor-pointer flex! justify-center items-center",
           container
         );
         button.innerHTML =

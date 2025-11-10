@@ -38,7 +38,7 @@ export default function StatsControl() {
 
     const control = new StatsControl();
     map.addControl(control);
-  }, [stats]);
+  }, [map, stats]);
 
   return null;
 }

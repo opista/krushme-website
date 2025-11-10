@@ -12,11 +12,7 @@ type Props = {
 };
 
 export default function LeafletMap({ children }: Props) {
-  const [settings, setSettings] = useState<Settings>();
-
-  useEffect(() => {
-    setSettings(storage.getSettings());
-  }, []);
+  const [settings] = useState<Settings>(() => storage.getSettings());
 
   if (!settings?.zoom || !settings?.center) return null;
 

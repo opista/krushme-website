@@ -60,7 +60,8 @@ export default function MapKeyControl() {
 
     const control = new KeyControl();
     map.addControl(control);
-  }, [map, setFilter, stats]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stats]);
 
   return null;
 }

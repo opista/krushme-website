@@ -1,5 +1,5 @@
 import { KrushemMachineStatus, RestaurantData, RestaurantStats } from "@/types";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, JSX, useContext, useEffect, useState } from "react";
 
 type RestaurantContext = {
   restaurants: RestaurantData[];
@@ -28,7 +28,7 @@ function RestaurantProvider({
 }: {
   children: JSX.Element;
   restaurants: RestaurantData[];
-  stats: RestaurantStats | null,
+  stats: RestaurantStats | null;
 }) {
   const [unFilteredRestaurants, setRestaurants] = useState<RestaurantData[]>(
     []

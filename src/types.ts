@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 export type OpenHoursWeekDay = { open: number; close: number };
 
 export type OpenHours = {
@@ -14,42 +12,11 @@ export type OpenHours = {
   sunday: OpenHoursWeekDay;
 };
 
-export type OrderMode = {
-  modeType: string;
-  serviceType: string;
-};
-
-export type Restaurant = {
-  city: string;
-  link: string;
-  geolocation: {
-    longitude: number;
-    latitude: number;
-  };
-  hours: OpenHours[];
-  name: string;
-  orderModes: OrderMode[];
-  postalcode: string;
-  refid: string;
-  storeid: string;
-  street: string;
-};
-
 export enum KrushemMachineStatus {
   Working = "working",
   Broken = "broken",
   Unknown = "unknown",
 }
-
-export type RestaurantStoreModel = {
-  _id?: ObjectId;
-  refId: Restaurant["refid"];
-  meta: Restaurant;
-  krushemMachineStatus: KrushemMachineStatus;
-  checkedAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
-};
 
 export type OpenHoursDayOfWeek = { open: number; close: number };
 

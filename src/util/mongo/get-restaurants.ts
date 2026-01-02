@@ -1,7 +1,6 @@
 import {
   KrushemMachineStatus,
   MappedRestaurantData,
-  ProjectedRestaurantStoreModel,
   RestaurantStoreModel,
 } from "@/types";
 import { Db } from "mongodb";
@@ -12,21 +11,7 @@ export const getAllRestaurants = async (
 ): Promise<MappedRestaurantData> => {
   const collection = db.collection<RestaurantStoreModel>("restaurants");
 
-  const restaurants = await collection
-    .find()
-    .project<ProjectedRestaurantStoreModel>({
-      _id: 1,
-      checkedAt: 1,
-      krushemMachineStatus: 1,
-      "meta.geolocation": 1,
-      "meta.hours": 1,
-      "meta.link": 1,
-      "meta.name": 1,
-      "meta.street": 1,
-      "meta.city": 1,
-      "meta.postalcode": 1,
-    })
-    .toArray();
+  const restaurants = await collection.find().toArray();
 
   const locations = restaurants.map(mapRestaurant);
 

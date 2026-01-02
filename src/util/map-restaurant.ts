@@ -1,7 +1,7 @@
 import {
   KrushemMachineStatus,
-  ProjectedRestaurantStoreModel,
   RestaurantData,
+  RestaurantStoreModel,
 } from "@/types";
 import { formatAddress } from "./format-address";
 
@@ -10,16 +10,13 @@ export const mapRestaurant = ({
   checkedAt,
   krushemMachineStatus,
   meta,
-}: ProjectedRestaurantStoreModel): RestaurantData => {
+}: RestaurantStoreModel): RestaurantData => {
   const { geolocation, hours, link, name } = meta;
 
   return {
     id: _id?.toString() || "",
     address: formatAddress(meta),
-    coords: {
-      longitude: Number(geolocation.longitude),
-      latitude: Number(geolocation.latitude),
-    },
+    coords: geolocation,
     krushemMachineStatus: krushemMachineStatus || KrushemMachineStatus.Unknown,
     lastChecked: checkedAt,
     link: `https://www.kfc.co.uk${link}`,

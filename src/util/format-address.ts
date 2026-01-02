@@ -1,10 +1,10 @@
-import { ProjectedRestaurantStoreModel } from "@/types";
+import { RestaurantStoreModel } from "@/types";
 
 export const formatAddress = ({
   street,
   city,
   postalcode,
-}: ProjectedRestaurantStoreModel["meta"]) =>
+}: RestaurantStoreModel["meta"]) =>
   [street, city, postalcode]
     .filter(Boolean)
     .filter((value) => value.toLowerCase() !== "null")

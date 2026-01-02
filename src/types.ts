@@ -23,8 +23,8 @@ export type Restaurant = {
   city: string;
   link: string;
   geolocation: {
-    longitude: string;
-    latitude: string;
+    longitude: number;
+    latitude: number;
   };
   hours: OpenHours[];
   name: string;
@@ -49,16 +49,6 @@ export type RestaurantStoreModel = {
   checkedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
-};
-
-export type ProjectedRestaurantStoreModel = {
-  _id?: ObjectId;
-  checkedAt: RestaurantStoreModel["checkedAt"];
-  krushemMachineStatus: RestaurantStoreModel["krushemMachineStatus"];
-  meta: Pick<
-    Restaurant,
-    "street" | "city" | "postalcode" | "name" | "link" | "hours" | "geolocation"
-  >;
 };
 
 export type OpenHoursDayOfWeek = { open: number; close: number };

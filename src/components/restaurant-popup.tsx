@@ -36,7 +36,10 @@ export default function RestaurantPopup({
       </a>
       <KrushemStatus status={restaurant.krushemMachineStatus} />
       <div className="mt-2 text-xs text-gray-400">
-        Last checked {timeSince(new Date(restaurant.lastChecked))} ago
+        Last checked{" "}
+        {restaurant.lastChecked
+          ? `${timeSince(new Date(restaurant.lastChecked))} ago`
+          : "never"}
       </div>
     </Popup>
   );

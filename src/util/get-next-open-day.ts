@@ -1,4 +1,4 @@
-import { OpenHoursDayOfWeek, RestaurantOpenHours } from "@/types";
+import { OpenHoursDayOfWeek, OpenHours } from "@/types";
 
 const days = [
   "monday",
@@ -10,7 +10,7 @@ const days = [
   "sunday",
 ];
 
-export const getNextOpenDay = (day: string, hours: RestaurantOpenHours) => {
+export const getNextOpenDay = (day: string, hours: OpenHours) => {
   const dayIndex = days.indexOf(day.toLowerCase());
 
   if (dayIndex === -1) return null;
@@ -21,9 +21,7 @@ export const getNextOpenDay = (day: string, hours: RestaurantOpenHours) => {
   ];
 
   return sortedDays.find((sortedDay) => {
-    const dayHours = hours[
-      sortedDay as keyof RestaurantOpenHours
-    ] as OpenHoursDayOfWeek;
+    const dayHours = hours[sortedDay as keyof OpenHours] as OpenHoursDayOfWeek;
     return dayHours && dayHours.open;
   });
 };

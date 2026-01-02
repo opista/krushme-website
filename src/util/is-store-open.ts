@@ -1,9 +1,9 @@
-import { RestaurantOpenHours } from "@/types";
+import { OpenHours } from "@/types";
 import { DateTime } from "luxon";
 import { getOpeningAndClosingTimes } from "./get-open-and-closing-times";
 import { getRelativeDay } from "./get-relative-day";
 
-export const isStoreOpen = (hours?: RestaurantOpenHours) => {
+export const isStoreOpen = (hours?: OpenHours) => {
   const now = DateTime.now().setZone("Europe/London") as DateTime<true>;
 
   if (!now.weekdayLong) return null;

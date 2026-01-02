@@ -1,4 +1,4 @@
-import { RestaurantOpenHours } from "@/types";
+import { OpenHours } from "@/types";
 import { getOpeningAndClosingTimes } from "./get-open-and-closing-times";
 import { DateTime } from "luxon";
 
@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
  * Handles both normal hours and midnight crossover scenarios.
  */
 export const getTimeUntilClosing = (
-  hours: RestaurantOpenHours,
+  hours: OpenHours,
   now: DateTime
 ): { timeUntilClosing: string; closingTime: DateTime } | null => {
   const todaysHoursFormatted = getOpeningAndClosingTimes(

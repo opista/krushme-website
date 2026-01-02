@@ -1,4 +1,4 @@
-import { OpenHoursDayOfWeek, RestaurantOpenHours } from "@/types";
+import { OpenHoursDayOfWeek, OpenHours } from "@/types";
 import { DateObjectUnits, DateTime } from "luxon";
 
 const convertHoursToTime = (num: number): DateObjectUnits => {
@@ -11,7 +11,7 @@ const convertHoursToTime = (num: number): DateObjectUnits => {
 };
 
 export const getOpeningAndClosingTimes = (
-  openHours?: RestaurantOpenHours,
+  openHours?: OpenHours,
   dayOfWeek?: string | null
 ) => {
   const now = DateTime.now().setZone("Europe/London");
@@ -19,7 +19,7 @@ export const getOpeningAndClosingTimes = (
   if (!openHours) return null;
 
   const openHoursForDay = openHours[
-    dayOfWeek?.toLowerCase() as keyof RestaurantOpenHours
+    dayOfWeek?.toLowerCase() as keyof OpenHours
   ] as OpenHoursDayOfWeek;
 
   if (!openHoursForDay) return null;

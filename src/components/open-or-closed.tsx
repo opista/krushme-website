@@ -1,11 +1,11 @@
-import { RestaurantOpenHours } from "@/types";
+import { OpenHours } from "@/types";
 import { getStoreStatus } from "@/util/get-store-status";
 
 export default function OpenOrClosed({
   hours,
   orderMode,
 }: {
-  hours: RestaurantOpenHours[];
+  hours: OpenHours[];
   orderMode: string;
 }) {
   const openHoursForMode = hours.find(

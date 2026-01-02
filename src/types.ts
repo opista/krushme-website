@@ -67,8 +67,8 @@ export type RestaurantData = {
   id: string;
   address: string;
   coords: {
-    longitude: string;
-    latitude: string;
+    longitude: number;
+    latitude: number;
   };
   krushemMachineStatus: KrushemMachineStatus;
   lastChecked?: Date;

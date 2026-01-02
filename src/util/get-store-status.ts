@@ -1,4 +1,4 @@
-import { RestaurantOpenHours } from "@/types";
+import { OpenHours } from "@/types";
 import { capitaliseFirstLetter } from "@/util/capitalise-first-letter";
 import { getNextOpenDay } from "@/util/get-next-open-day";
 import { getOpeningAndClosingTimes } from "@/util/get-open-and-closing-times";
@@ -12,10 +12,7 @@ export interface StoreStatus {
   text: string;
 }
 
-const createLabelForNextOpenDay = (
-  now: DateTime,
-  hours: RestaurantOpenHours
-): string => {
+const createLabelForNextOpenDay = (now: DateTime, hours: OpenHours): string => {
   if (!now.weekdayLong) return "";
 
   // Check if today is an open day
@@ -27,7 +24,9 @@ const createLabelForNextOpenDay = (
   if (todaysHoursFormatted) {
     // If we're before today's opening time, show today's opening time without day name
     if (now < todaysHoursFormatted.openingTime) {
-      return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat("h:mm a")}`;
+      return `Re-opens at ${todaysHoursFormatted.openingTime.toFormat(
+        "h:mm a"
+      )}`;
     }
     // If we're after today's closing time, we need to find the next open day
   }
@@ -46,7 +45,7 @@ const createLabelForNextOpenDay = (
   )} on ${capitaliseFirstLetter(nextOpenDay)}`;
 };
 
-export const getStoreStatus = (hours?: RestaurantOpenHours): StoreStatus => {
+export const getStoreStatus = (hours?: OpenHours): StoreStatus => {
   const now = DateTime.now().setZone("Europe/London");
 
   const todaysHoursFormatted = getOpeningAndClosingTimes(

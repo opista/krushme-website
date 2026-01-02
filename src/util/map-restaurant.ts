@@ -16,7 +16,10 @@ export const mapRestaurant = ({
   return {
     id: _id?.toString() || "",
     address: formatAddress(meta),
-    coords: geolocation,
+    coords: {
+      longitude: Number(geolocation.longitude),
+      latitude: Number(geolocation.latitude),
+    },
     krushemMachineStatus: krushemMachineStatus || KrushemMachineStatus.Unknown,
     lastChecked: checkedAt,
     link: `https://www.kfc.co.uk${link}`,

@@ -1,4 +1,3 @@
-import clientPromise from "@/util/mongo/client";
 import { getAllRestaurants } from "@/util/mongo/get-restaurants";
 import HomeView from "./home-view";
 
@@ -13,10 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const client = await clientPromise;
-  const db = client.db("krushme");
-
-  const data = await getAllRestaurants(db);
+  const data = await getAllRestaurants();
 
   return <HomeView data={data} />;
 }

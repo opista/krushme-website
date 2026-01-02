@@ -3,12 +3,12 @@ import {
   MappedRestaurantData,
   RestaurantStoreModel,
 } from "@/types";
-import { Db } from "mongodb";
 import { mapRestaurant } from "../map-restaurant";
+import clientPromise from "./client";
 
-export const getAllRestaurants = async (
-  db: Db
-): Promise<MappedRestaurantData> => {
+export const getAllRestaurants = async (): Promise<MappedRestaurantData> => {
+  const client = await clientPromise;
+  const db = client.db("krushme");
   const collection = db.collection<RestaurantStoreModel>("restaurants");
 
   const restaurants = await collection.find().toArray();

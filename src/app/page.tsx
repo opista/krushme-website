@@ -3,7 +3,7 @@ import HomeView from "./home-view";
 
 import type { Metadata } from "next";
 
-export const revalidate = 180;
+export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "Krushme - Is your local KFC Krushem machine working?",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocateControl from "./locate-control";
 import MapKeyControl from "./map-key-control";

@@ -1,9 +1,13 @@
 "use client";
 
+import { lastCheckedString } from "@/util/last-checked-string";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
-export const Time = () => {
+type TimeProps = {
+  lastChecked?: Date;
+};
+export const Time = ({ lastChecked }: TimeProps) => {
   const [date, setDate] = useState<Date | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -22,6 +26,8 @@ export const Time = () => {
   }
 
   return (
-    <>{DateTime.fromJSDate(date).setZone("Europe/London").toFormat("h:mm a")}</>
+    <span title={lastCheckedString(lastChecked)}>
+      {DateTime.fromJSDate(date).setZone("Europe/London").toFormat("h:mm a")}
+    </span>
   );
 };

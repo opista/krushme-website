@@ -1,8 +1,8 @@
 import { RestaurantData } from "@/types";
 import { Popup } from "react-leaflet";
 import OpenOrClosed from "./open-or-closed";
-import timeSince from "@/util/time-since";
 import KrushemStatus from "./krushem-status";
+import { lastCheckedString } from "@/util/last-checked-string";
 
 export default function RestaurantPopup({
   restaurant,
@@ -36,10 +36,7 @@ export default function RestaurantPopup({
       </a>
       <KrushemStatus status={restaurant.krushemMachineStatus} />
       <div className="mt-2 text-xs text-gray-400">
-        Last checked{" "}
-        {restaurant.lastChecked
-          ? `${timeSince(new Date(restaurant.lastChecked))} ago`
-          : "never"}
+        {lastCheckedString(restaurant.lastChecked)}
       </div>
     </Popup>
   );

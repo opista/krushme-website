@@ -21,11 +21,6 @@ export default function HomeView({ data }: HomeViewProps) {
     );
   })[0].lastChecked;
 
-  console.log(
-    "Most recent check",
-    mostRecentCheck ? new Date(mostRecentCheck) : null
-  );
-
   return (
     <div className="flex flex-col max-w-7xl mx-auto relative h-svh">
       <div className="fixed top-0 z-50 w-full max-w-7xl flex justify-between items-center px-6 py-4">
@@ -38,7 +33,7 @@ export default function HomeView({ data }: HomeViewProps) {
           </p>
         </div>
         <div className="hidden sm:block">
-          <Time />
+          <Time lastChecked={mostRecentCheck} />
         </div>
       </div>
 

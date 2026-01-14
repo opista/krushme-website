@@ -11,11 +11,11 @@ export async function GET(request: NextRequest) {
 
   try {
     revalidatePath("/");
-    await fetch(request.nextUrl.origin, {
+    fetch(process.env.APP_URL!, {
       headers: {
         "Cache-Control": "no-cache",
       },
-    });
+    }).catch(err => console.error('Revalidation fetch failed:', err));
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({ error: "Error revalidating" }, { status: 500 });

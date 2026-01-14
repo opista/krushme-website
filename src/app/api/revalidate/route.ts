@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 
   try {
     revalidatePath("/");
-    fetch(request.nextUrl.origin, {
+    fetch(process.env.APP_URL!, {
       headers: {
         "Cache-Control": "no-cache",
       },

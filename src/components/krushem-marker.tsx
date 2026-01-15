@@ -1,21 +1,18 @@
 "use client";
 
 import { memo } from "react";
-import { CircleMarker, useMap } from "react-leaflet";
+import { CircleMarker } from "react-leaflet";
 import { RestaurantData } from "@/types";
 import RestaurantPopup from "./restaurant-popup";
 import mapKrushemStatusToMeta from "@/util/map-krushem-status-to-meta";
-import setRadiusForZoom from "@/util/set-radius-for-zoom";
 
 type Props = {
   restaurant: RestaurantData;
+  radius: number;
 };
 
-function KrushemMarker({ restaurant }: Props) {
+function KrushemMarker({ restaurant, radius }: Props) {
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
-  const map = useMap();
-
-  const radius = setRadiusForZoom(map.getZoom());
 
   return (
     <CircleMarker

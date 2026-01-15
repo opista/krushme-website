@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { CircleMarker, useMap } from "react-leaflet";
 import { RestaurantData } from "@/types";
 import RestaurantPopup from "./restaurant-popup";
@@ -10,7 +11,7 @@ type Props = {
   restaurant: RestaurantData;
 };
 
-export default function KrushemMarker({ restaurant }: Props) {
+function KrushemMarker({ restaurant }: Props) {
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
   const map = useMap();
 
@@ -28,3 +29,7 @@ export default function KrushemMarker({ restaurant }: Props) {
     </CircleMarker>
   );
 }
+
+// Memoize to prevent unnecessary re-renders of markers when the list is filtered
+// or parent components update. This is especially useful as the map can contain many markers.
+export default memo(KrushemMarker);

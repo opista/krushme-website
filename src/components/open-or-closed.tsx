@@ -2,7 +2,6 @@
 
 import { OpenHours } from "@/types";
 import { getStoreStatus } from "@/util/get-store-status";
-import { useEffect, useState } from "react";
 
 export default function OpenOrClosed({
   hours,
@@ -11,27 +10,18 @@ export default function OpenOrClosed({
   hours: OpenHours[];
   orderMode: string;
 }) {
-  const [mounted, setMounted] = useState(false);
-  const [status, setStatus] = useState<{
-    color: string;
-    label: string;
-    text: string;
-  } | null>(null);
+  const openHoursForMode = hours.find(
+    ({ type }) => type.toLowerCase() === orderMode.toLowerCase()
+  );
 
-  useEffect(() => {
-    setMounted(true);
-    const openHoursForMode = hours.find(
-      ({ type }) => type.toLowerCase() === orderMode.toLowerCase()
-    );
-    setStatus(getStoreStatus(openHoursForMode));
-  }, [hours, orderMode]);
-
-  if (!mounted || !status) {
-    return <span className="font-bold text-gray-500">Loading...</span>;
-  }
+  const status = getStoreStatus(openHoursForMode);
 
   return (
-    <span title={status.label} className={`font-bold ${status.color}`}>
+    <span
+      suppressHydrationWarning
+      title={status.label}
+      className={`font-bold ${status.color}`}
+    >
       {status.text}
     </span>
   );

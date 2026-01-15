@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { CircleMarker, useMap } from "react-leaflet";
 import { RestaurantData } from "@/types";
 import RestaurantPopup from "./restaurant-popup";
@@ -10,7 +11,7 @@ type Props = {
   restaurant: RestaurantData;
 };
 
-export default function KrushemMarker({ restaurant }: Props) {
+function KrushemMarker({ restaurant }: Props) {
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
   const map = useMap();
 
@@ -28,3 +29,5 @@ export default function KrushemMarker({ restaurant }: Props) {
     </CircleMarker>
   );
 }
+
+export default memo(KrushemMarker);

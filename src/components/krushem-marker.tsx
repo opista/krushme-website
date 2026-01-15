@@ -30,6 +30,4 @@ function KrushemMarker({ restaurant }: Props) {
   );
 }
 
-// Memoize to prevent unnecessary re-renders of markers when the list is filtered
-// or parent components update. This is especially useful as the map can contain many markers.
 export default memo(KrushemMarker);

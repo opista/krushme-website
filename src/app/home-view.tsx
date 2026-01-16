@@ -16,9 +16,10 @@ type HomeViewProps = {
 };
 
 export default function HomeView({ data }: HomeViewProps) {
-  const mostRecentCheck = useMemo(() => {
-    return getMostRecentCheck(data?.locations);
-  }, [data?.locations]);
+  const mostRecentCheck = useMemo(
+    () => getMostRecentCheck(data?.locations),
+    [data?.locations]
+  );
 
   return (
     <div className="flex flex-col max-w-7xl mx-auto relative h-svh">

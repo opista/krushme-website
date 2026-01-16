@@ -28,7 +28,7 @@ export type RestaurantData = {
     latitude: number;
   };
   krushemMachineStatus: KrushemMachineStatus;
-  lastChecked?: Date;
+  lastChecked?: number;
   link: string;
   hours: OpenHours[];
   name: string;

@@ -4,6 +4,8 @@ import { Time } from "@/components/time";
 import { RestaurantProvider } from "@/context/restaurant-context";
 import dynamic from "next/dynamic";
 import { MappedRestaurantData } from "@/types";
+import { useMemo } from "react";
+import { getMostRecentCheck } from "@/util/get-most-recent-check";
 
 const RestaurantMap = dynamic(() => import("@/components/restaurant-map"), {
   ssr: false,
@@ -14,12 +16,10 @@ type HomeViewProps = {
 };
 
 export default function HomeView({ data }: HomeViewProps) {
-  const mostRecentCheck = data?.locations.sort((a, b) => {
-    return (
-      new Date(b.lastChecked || 0).getTime() -
-      new Date(a.lastChecked || 0).getTime()
-    );
-  })[0].lastChecked;
+  const mostRecentCheck = useMemo(
+    () => getMostRecentCheck(data?.locations),
+    [data?.locations]
+  );
 
   return (
     <div className="flex flex-col max-w-7xl mx-auto relative h-svh">

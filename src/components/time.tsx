@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 
 type TimeProps = {
-  lastChecked?: Date;
+  lastChecked?: number;
 };
 export const Time = ({ lastChecked }: TimeProps) => {
   const [date, setDate] = useState<Date | null>(null);

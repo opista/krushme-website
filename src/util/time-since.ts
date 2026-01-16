@@ -24,7 +24,7 @@ const calculateTimeDifference = (time: number) => {
   };
 };
 
-export default function timeSince (date: Date) {
+export default function timeSince (date: Date | number) {
   const time = Math.floor(
     (new Date().valueOf() - new Date(date).valueOf()) / 1000
   );

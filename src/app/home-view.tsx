@@ -5,6 +5,7 @@ import { RestaurantProvider } from "@/context/restaurant-context";
 import dynamic from "next/dynamic";
 import { MappedRestaurantData } from "@/types";
 import { useMemo } from "react";
+import { getMostRecentCheck } from "@/util/get-most-recent-check";
 
 const RestaurantMap = dynamic(() => import("@/components/restaurant-map"), {
   ssr: false,
@@ -15,23 +16,8 @@ type HomeViewProps = {
 };
 
 export default function HomeView({ data }: HomeViewProps) {
-  // Optimization: Use reduce instead of sort to avoid mutating the array and improve performance from O(N log N) to O(N)
   const mostRecentCheck = useMemo(() => {
-    if (!data?.locations?.length) return undefined;
-
-    let maxDate = new Date(0);
-    let mostRecent = data.locations[0].lastChecked;
-
-    for (const location of data.locations) {
-      if (location.lastChecked) {
-        const date = new Date(location.lastChecked);
-        if (date > maxDate) {
-          maxDate = date;
-          mostRecent = location.lastChecked;
-        }
-      }
-    }
-    return mostRecent;
+    return getMostRecentCheck(data?.locations);
   }, [data?.locations]);
 
   return (

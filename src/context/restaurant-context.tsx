@@ -3,7 +3,6 @@ import {
   createContext,
   JSX,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -12,7 +11,6 @@ type RestaurantContext = {
   restaurants: RestaurantData[];
   stats: RestaurantStats | null;
   setFilter: (filter: keyof FilterState) => void;
-  setStats: (stats: RestaurantStats) => void;
 };
 
 type FilterState = {
@@ -25,7 +23,6 @@ const RestaurantContext = createContext<RestaurantContext>({
   restaurants: [],
   stats: { working: 0, broken: 0, unknown: 0, total: 0 },
   setFilter: () => {},
-  setStats: () => {},
 });
 
 function RestaurantProvider({
@@ -37,20 +34,6 @@ function RestaurantProvider({
   restaurants: RestaurantData[];
   stats: RestaurantStats | null;
 }) {
-  const [unFilteredRestaurants, setRestaurants] = useState<RestaurantData[]>(
-    []
-  );
-
-  const [statsData, setStats] = useState<RestaurantStats | null>(null);
-
-  useEffect(() => {
-    setStats(stats);
-  }, [stats]);
-
-  useEffect(() => {
-    setRestaurants(restaurants);
-  }, [restaurants]);
-
   const [filters, setFilters] = useState<FilterState>({
     showWorking: true,
     showBroken: true,
@@ -65,7 +48,7 @@ function RestaurantProvider({
 
   const { showWorking, showBroken, showUnknown } = filters;
   const filteredRestaurants = useMemo(() => {
-    return unFilteredRestaurants.filter((restaurant) => {
+    return restaurants.filter((restaurant) => {
       if (
         !showWorking &&
         restaurant.krushemMachineStatus === KrushemMachineStatus.Working
@@ -84,14 +67,12 @@ function RestaurantProvider({
 
       return true;
     });
-  }, [unFilteredRestaurants, showWorking, showBroken, showUnknown]);
+  }, [restaurants, showWorking, showBroken, showUnknown]);
 
   const value = {
     restaurants: filteredRestaurants,
-    setRestaurants,
     setFilter,
-    setStats,
-    stats: statsData,
+    stats,
   };
 
   return (

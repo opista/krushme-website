@@ -5,3 +5,7 @@
 ## 2026-02-14 - Mirroring Props in State
 **Learning:** Found a Context Provider mirroring props (`restaurants`, `stats`) into local state variables (`unFilteredRestaurants`, `statsData`) using `useEffect`. This causes an unnecessary double-render cycle (Props Change -> Render -> Effect -> State Update -> Re-render) and duplicates data in memory.
 **Action:** Remove the state and `useEffect`. Derive values directly from props (e.g., using `useMemo`) to ensure downstream consumers receive updates immediately in the same render cycle.
+
+## 2026-03-01 - Optimizing GitHub Gist Data Fetching
+**Learning:** Found sequential API calls (fetch commits -> fetch raw file) to get the latest Gist content. This doubles the latency and hits GitHub API rate limits.
+**Action:** Use the direct `raw` URL (`gist.githubusercontent.com/.../raw/filename`) which redirects to the latest version. It's faster (CDN) and avoids API limits, though subject to a ~5-minute cache (usually acceptable for non-critical updates).

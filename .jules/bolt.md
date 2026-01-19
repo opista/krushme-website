@@ -7,5 +7,6 @@
 **Action:** Remove the state and `useEffect`. Derive values directly from props (e.g., using `useMemo`) to ensure downstream consumers receive updates immediately in the same render cycle.
 
 ## 2026-03-01 - Optimizing GitHub Gist Data Fetching
-**Learning:** Found sequential API calls (fetch commits -> fetch raw file) to get the latest Gist content. This doubles the latency and hits GitHub API rate limits.
-**Action:** Use the direct `raw` URL (`gist.githubusercontent.com/.../raw/filename`) which redirects to the latest version. It's faster (CDN) and avoids API limits, though subject to a ~5-minute cache (usually acceptable for non-critical updates).
+**Learning:** Found sequential API calls (fetch commits -> fetch raw file) to get the latest Gist content. Attempted to optimize by using the direct `raw` URL (`gist.githubusercontent.com/.../raw/filename`).
+**Outcome:** REJECTED. The raw URL is cached by GitHub's CDN (up to 5 mins), but the application requires the absolute latest version immediately.
+**Action:** Do NOT remove the commit hash lookup. The sequential fetch is necessary to bypass CDN caching and guarantee data freshness.

@@ -2,6 +2,7 @@ import { KrushemMachineStatus, RestaurantData, RestaurantStats } from "@/types";
 import {
   createContext,
   JSX,
+  useCallback,
   useContext,
   useMemo,
   useState,
@@ -40,11 +41,14 @@ function RestaurantProvider({
     showUnknown: true,
   });
 
-  const setFilter = (filter: keyof FilterState) =>
-    setFilters((originalFilters) => ({
-      ...originalFilters,
-      [filter]: !originalFilters[filter],
-    }));
+  const setFilter = useCallback(
+    (filter: keyof FilterState) =>
+      setFilters((originalFilters) => ({
+        ...originalFilters,
+        [filter]: !originalFilters[filter],
+      })),
+    []
+  );
 
   const { showWorking, showBroken, showUnknown } = filters;
   const filteredRestaurants = useMemo(() => {
@@ -69,11 +73,14 @@ function RestaurantProvider({
     });
   }, [restaurants, showWorking, showBroken, showUnknown]);
 
-  const value = {
-    restaurants: filteredRestaurants,
-    setFilter,
-    stats,
-  };
+  const value = useMemo(
+    () => ({
+      restaurants: filteredRestaurants,
+      setFilter,
+      stats,
+    }),
+    [filteredRestaurants, setFilter, stats]
+  );
 
   return (
     <RestaurantContext.Provider value={value}>

@@ -10,3 +10,7 @@
 **Learning:** Found sequential API calls (fetch commits -> fetch raw file) to get the latest Gist content. Attempted to optimize by using the direct `raw` URL (`gist.githubusercontent.com/.../raw/filename`).
 **Outcome:** REJECTED. The raw URL is cached by GitHub's CDN (up to 5 mins), but the application requires the absolute latest version immediately.
 **Action:** Do NOT remove the commit hash lookup. The sequential fetch is necessary to bypass CDN caching and guarantee data freshness.
+
+## 2026-03-05 - Object Literal Allocations in Render Loops
+**Learning:** Found a utility function `mapKrushemStatusToMeta` returning new object literals on every call. Used inside a list rendering loop (Markers), this breaks referential equality checks (even with `React.memo`), causing unnecessary re-renders and increased GC pressure.
+**Action:** Extract static return values into module-level constants (using `as const` for immutability). This ensures O(1) allocation and stable references, allowing downstream components to skip re-renders effectively.

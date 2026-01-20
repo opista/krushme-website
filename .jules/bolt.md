@@ -13,4 +13,4 @@
 
 ## 2026-03-05 - Object Literal Allocations in Render Loops
 **Learning:** Found a utility function `mapKrushemStatusToMeta` returning new object literals on every call. Used inside a list rendering loop (Markers), this breaks referential equality checks (even with `React.memo`), causing unnecessary re-renders and increased GC pressure.
-**Action:** Extract static return values into module-level constants (using `as const` for immutability). This ensures O(1) allocation and stable references, allowing downstream components to skip re-renders effectively.
+**Action:** Extract static return values into module-level constants (using `as const` for immutability). This ensures O(1) allocation and stable references, allowing downstream components to skip re-renders effectively. Use a constant lookup object (map) instead of a switch statement for O(1) access and cleaner code.

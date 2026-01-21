@@ -63,6 +63,11 @@ export default function LocateControl() {
 
     const button = new LocateButton();
     map.addControl(button);
+
+    // Performance: Cleanup control to prevent memory leaks and duplicate DOM elements
+    return () => {
+      map.removeControl(button);
+    };
   }, [map]);
 
   return null;

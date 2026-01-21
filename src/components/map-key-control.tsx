@@ -60,6 +60,11 @@ export default function MapKeyControl() {
 
     const control = new KeyControl();
     map.addControl(control);
+
+    // Performance: Cleanup control to prevent memory leaks and duplicate DOM elements
+    return () => {
+      map.removeControl(control);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stats]);
 

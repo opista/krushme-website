@@ -38,6 +38,11 @@ export default function StatsControl() {
 
     const control = new StatsControl();
     map.addControl(control);
+
+    // Performance: Cleanup control to prevent memory leaks and duplicate DOM elements
+    return () => {
+      map.removeControl(control);
+    };
   }, [map, stats]);
 
   return null;

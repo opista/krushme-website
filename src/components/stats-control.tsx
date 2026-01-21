@@ -38,6 +38,10 @@ export default function StatsControl() {
 
     const control = new StatsControl();
     map.addControl(control);
+
+    return () => {
+      map.removeControl(control);
+    };
   }, [map, stats]);
 
   return null;

@@ -18,7 +18,8 @@ const createLabelForNextOpenDay = (now: DateTime, hours: OpenHours): string => {
   // Check if today is an open day
   const todaysHoursFormatted = getOpeningAndClosingTimes(
     hours,
-    now.weekdayLong
+    now.weekdayLong,
+    now
   );
 
   if (todaysHoursFormatted) {
@@ -35,7 +36,8 @@ const createLabelForNextOpenDay = (now: DateTime, hours: OpenHours): string => {
   const nextOpenDay = getNextOpenDay(now.weekdayLong, hours);
   const nextOpenDayHoursFormatted = getOpeningAndClosingTimes(
     hours,
-    nextOpenDay
+    nextOpenDay,
+    now
   );
 
   if (!nextOpenDay || !nextOpenDayHoursFormatted) return "";
@@ -45,15 +47,17 @@ const createLabelForNextOpenDay = (now: DateTime, hours: OpenHours): string => {
   )} on ${capitaliseFirstLetter(nextOpenDay)}`;
 };
 
-export const getStoreStatus = (hours?: OpenHours): StoreStatus => {
-  const now = DateTime.now().setZone("Europe/London");
-
+export const getStoreStatus = (
+  hours?: OpenHours,
+  now: DateTime = DateTime.now().setZone("Europe/London")
+): StoreStatus => {
   const todaysHoursFormatted = getOpeningAndClosingTimes(
     hours,
-    now.weekdayLong
+    now.weekdayLong,
+    now
   );
 
-  const isOpen = isStoreOpen(hours);
+  const isOpen = isStoreOpen(hours, now);
 
   if (!hours || !now.weekdayLong) {
     return {

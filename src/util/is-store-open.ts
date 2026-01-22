@@ -3,12 +3,13 @@ import { DateTime } from "luxon";
 import { getOpeningAndClosingTimes } from "./get-open-and-closing-times";
 import { getRelativeDay } from "./get-relative-day";
 
-export const isStoreOpen = (hours?: OpenHours) => {
-  const now = DateTime.now().setZone("Europe/London") as DateTime<true>;
-
+export const isStoreOpen = (
+  hours?: OpenHours,
+  now: DateTime = DateTime.now().setZone("Europe/London")
+) => {
   if (!now.weekdayLong) return null;
 
-  const todaysHours = getOpeningAndClosingTimes(hours, now.weekdayLong);
+  const todaysHours = getOpeningAndClosingTimes(hours, now.weekdayLong, now);
 
   if (!todaysHours) return null;
 
@@ -30,7 +31,11 @@ export const isStoreOpen = (hours?: OpenHours) => {
   // Check if we're in yesterday's extended hours (before today's opening)
   if (now < openingTime) {
     const yesterdayName = getRelativeDay(now.weekdayLong, -1);
-    const yesterdaysHours = getOpeningAndClosingTimes(hours, yesterdayName);
+    const yesterdaysHours = getOpeningAndClosingTimes(
+      hours,
+      yesterdayName,
+      now
+    );
 
     if (
       yesterdaysHours &&

@@ -12,7 +12,8 @@ export const getTimeUntilClosing = (
 ): { timeUntilClosing: string; closingTime: DateTime } | null => {
   const todaysHoursFormatted = getOpeningAndClosingTimes(
     hours,
-    now.weekdayLong
+    now.weekdayLong,
+    now
   );
 
   if (!todaysHoursFormatted) return null;
@@ -31,7 +32,11 @@ export const getTimeUntilClosing = (
   } else {
     // We're in yesterday's extended hours, need to get yesterday's closing time
     const yesterdayName = now.minus({ days: 1 }).weekdayLong;
-    const yesterdaysHours = getOpeningAndClosingTimes(hours, yesterdayName);
+    const yesterdaysHours = getOpeningAndClosingTimes(
+      hours,
+      yesterdayName,
+      now
+    );
 
     if (
       yesterdaysHours &&

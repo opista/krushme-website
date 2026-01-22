@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocateControl from "./locate-control";
 import MapKeyControl from "./map-key-control";
@@ -12,7 +12,12 @@ type Props = {
 };
 
 export default function LeafletMap({ children }: Props) {
-  const [settings] = useState<Settings>(() => storage.getSettings());
+  const [settings, setSettings] = useState<Settings | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSettings(storage.getSettings());
+  }, []);
 
   if (!settings?.zoom || !settings?.center) return null;
 

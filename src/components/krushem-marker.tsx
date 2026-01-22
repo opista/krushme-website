@@ -5,13 +5,15 @@ import { CircleMarker } from "react-leaflet";
 import { RestaurantData } from "@/types";
 import RestaurantPopup from "./restaurant-popup";
 import mapKrushemStatusToMeta from "@/util/map-krushem-status-to-meta";
+import { DateTime } from "luxon";
 
 type Props = {
   restaurant: RestaurantData;
   radius: number;
+  now?: DateTime;
 };
 
-function KrushemMarker({ restaurant, radius }: Props) {
+function KrushemMarker({ restaurant, radius, now }: Props) {
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
 
   return (
@@ -22,7 +24,7 @@ function KrushemMarker({ restaurant, radius }: Props) {
       radius={radius}
       stroke={false}
     >
-      <RestaurantPopup restaurant={restaurant} />
+      <RestaurantPopup restaurant={restaurant} now={now} />
     </CircleMarker>
   );
 }

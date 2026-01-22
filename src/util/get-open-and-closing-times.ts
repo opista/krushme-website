@@ -12,10 +12,9 @@ const convertHoursToTime = (num: number): DateObjectUnits => {
 
 export const getOpeningAndClosingTimes = (
   openHours?: OpenHours,
-  dayOfWeek?: string | null
+  dayOfWeek?: string | null,
+  now: DateTime = DateTime.now().setZone("Europe/London")
 ) => {
-  const now = DateTime.now().setZone("Europe/London");
-
   if (!openHours) return null;
 
   const openHoursForDay = openHours[

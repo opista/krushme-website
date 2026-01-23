@@ -22,7 +22,7 @@ export default function RestaurantPopup({
         <span className="w-20">Dining In</span>{" "}
         <OpenOrClosed
           hours={restaurant.hours}
-          orderMode="Standard"
+          orderMode="standard"
           now={now}
         />
       </div>
@@ -30,7 +30,7 @@ export default function RestaurantPopup({
         <span className="w-20">Collection</span>{" "}
         <OpenOrClosed
           hours={restaurant.hours}
-          orderMode="Collection"
+          orderMode="collect"
           now={now}
         />
       </div>
@@ -38,7 +38,7 @@ export default function RestaurantPopup({
         <span className="w-20">Delivery</span>{" "}
         <OpenOrClosed
           hours={restaurant.hours}
-          orderMode="Delivery"
+          orderMode="delivery"
           now={now}
         />
       </div>
@@ -46,7 +46,7 @@ export default function RestaurantPopup({
         <span className="w-20">Drive Thru</span>{" "}
         <OpenOrClosed
           hours={restaurant.hours}
-          orderMode="DriveThru"
+          orderMode="drivethru"
           now={now}
         />
       </div>

@@ -12,15 +12,12 @@ export interface StoreStatus {
   text: string;
 }
 
-const createLabelForNextOpenDay = (now: DateTime, hours: OpenHours): string => {
+const createLabelForNextOpenDay = (
+  now: DateTime,
+  hours: OpenHours,
+  todaysHoursFormatted: ReturnType<typeof getOpeningAndClosingTimes>
+): string => {
   if (!now.weekdayLong) return "";
-
-  // Check if today is an open day
-  const todaysHoursFormatted = getOpeningAndClosingTimes(
-    hours,
-    now.weekdayLong,
-    now
-  );
 
   if (todaysHoursFormatted) {
     // If we're before today's opening time, show today's opening time without day name
@@ -57,7 +54,7 @@ export const getStoreStatus = (
     now
   );
 
-  const isOpen = isStoreOpen(hours, now);
+  const isOpen = isStoreOpen(hours, now, todaysHoursFormatted);
 
   if (!hours || !now.weekdayLong) {
     return {
@@ -71,13 +68,13 @@ export const getStoreStatus = (
   if (isOpen === null) {
     return {
       color: "text-red-600",
-      label: createLabelForNextOpenDay(now, hours),
+      label: createLabelForNextOpenDay(now, hours, todaysHoursFormatted),
       text: "Closed",
     };
   }
 
   if (isOpen) {
-    const timeInfo = getTimeUntilClosing(hours, now);
+    const timeInfo = getTimeUntilClosing(hours, now, todaysHoursFormatted);
 
     if (timeInfo) {
       return {
@@ -90,7 +87,7 @@ export const getStoreStatus = (
 
   return {
     color: "text-red-600",
-    label: createLabelForNextOpenDay(now, hours),
+    label: createLabelForNextOpenDay(now, hours, todaysHoursFormatted),
     text: "Closed",
   };
 };

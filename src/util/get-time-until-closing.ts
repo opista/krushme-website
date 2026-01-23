@@ -8,13 +8,13 @@ import { DateTime } from "luxon";
  */
 export const getTimeUntilClosing = (
   hours: OpenHours,
-  now: DateTime
+  now: DateTime,
+  todaysHours?: ReturnType<typeof getOpeningAndClosingTimes>
 ): { timeUntilClosing: string; closingTime: DateTime } | null => {
-  const todaysHoursFormatted = getOpeningAndClosingTimes(
-    hours,
-    now.weekdayLong,
-    now
-  );
+  const todaysHoursFormatted =
+    todaysHours !== undefined
+      ? todaysHours
+      : getOpeningAndClosingTimes(hours, now.weekdayLong, now);
 
   if (!todaysHoursFormatted) return null;
 

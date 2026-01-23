@@ -18,3 +18,7 @@
 ## 2026-03-06 - Optimizing Time-Dependent Rendering
 **Learning:** Creating `DateTime` objects in loops or frequently called render functions is expensive (Intl API overhead). Lifting the "current time" (`now`) to a parent component and passing it down improved rendering performance by ~40% (1500ms -> 900ms for 4000 calls).
 **Action:** Identify time-dependent data (e.g., "Open/Closed" status) and hoist the `now` object creation. Use a hook (like `useCurrentTime`) to control the update frequency (e.g., every 60s) instead of creating a new timestamp on every render. This allows for batch updates and memoization stability.
+
+## 2026-03-08 - Hoisting Redundant Utility Calls
+**Learning:** Found `getStoreStatus` calling `getOpeningAndClosingTimes` multiple times (3x) for the same inputs within a single execution. This multiplied the cost of `DateTime` operations (Intl API) significantly.
+**Action:** Identify helper functions that are called multiple times with the same arguments. Calculate the result once in the parent and pass it down as an optional argument (dependency injection), ensuring to check for `undefined` (not truthiness) if the result can be null.

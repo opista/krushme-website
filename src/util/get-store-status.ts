@@ -2,6 +2,7 @@ import { OpenHours } from "@/types";
 import { capitaliseFirstLetter } from "@/util/capitalise-first-letter";
 import { getNextOpenDay } from "@/util/get-next-open-day";
 import { getOpeningAndClosingTimes } from "@/util/get-open-and-closing-times";
+import { getRelativeDay } from "@/util/get-relative-day";
 import { getTimeUntilClosing } from "@/util/get-time-until-closing";
 import { isStoreOpen } from "@/util/is-store-open";
 import { DateTime } from "luxon";
@@ -54,7 +55,25 @@ export const getStoreStatus = (
     now
   );
 
-  const isOpen = isStoreOpen(hours, now, todaysHoursFormatted);
+  let yesterdaysHoursFormatted;
+  if (
+    todaysHoursFormatted &&
+    now.weekdayLong &&
+    now < todaysHoursFormatted.openingTime
+  ) {
+    yesterdaysHoursFormatted = getOpeningAndClosingTimes(
+      hours,
+      getRelativeDay(now.weekdayLong, -1),
+      now
+    );
+  }
+
+  const isOpen = isStoreOpen(
+    hours,
+    now,
+    todaysHoursFormatted,
+    yesterdaysHoursFormatted
+  );
 
   if (!hours || !now.weekdayLong) {
     return {
@@ -74,7 +93,12 @@ export const getStoreStatus = (
   }
 
   if (isOpen) {
-    const timeInfo = getTimeUntilClosing(hours, now, todaysHoursFormatted);
+    const timeInfo = getTimeUntilClosing(
+      hours,
+      now,
+      todaysHoursFormatted,
+      yesterdaysHoursFormatted
+    );
 
     if (timeInfo) {
       return {

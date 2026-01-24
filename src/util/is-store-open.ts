@@ -6,7 +6,8 @@ import { getRelativeDay } from "./get-relative-day";
 export const isStoreOpen = (
   hours?: OpenHours,
   now: DateTime = DateTime.now().setZone("Europe/London"),
-  todaysHoursFormatted?: ReturnType<typeof getOpeningAndClosingTimes>
+  todaysHoursFormatted?: ReturnType<typeof getOpeningAndClosingTimes>,
+  yesterdaysHoursFormatted?: ReturnType<typeof getOpeningAndClosingTimes>
 ) => {
   if (!now.weekdayLong) return null;
 
@@ -34,12 +35,12 @@ export const isStoreOpen = (
 
   // Check if we're in yesterday's extended hours (before today's opening)
   if (now < openingTime) {
-    const yesterdayName = getRelativeDay(now.weekdayLong, -1);
-    const yesterdaysHours = getOpeningAndClosingTimes(
-      hours,
-      yesterdayName,
-      now
-    );
+    let yesterdaysHours = yesterdaysHoursFormatted;
+
+    if (yesterdaysHours === undefined) {
+      const yesterdayName = getRelativeDay(now.weekdayLong, -1);
+      yesterdaysHours = getOpeningAndClosingTimes(hours, yesterdayName, now);
+    }
 
     if (
       yesterdaysHours &&

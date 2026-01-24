@@ -22,3 +22,7 @@
 ## 2026-03-08 - Hoisting Redundant Utility Calls
 **Learning:** Found `getStoreStatus` calling `getOpeningAndClosingTimes` multiple times (3x) for the same inputs within a single execution. This multiplied the cost of `DateTime` operations (Intl API) significantly.
 **Action:** Identify helper functions that are called multiple times with the same arguments. Calculate the result once in the parent and pass it down as an optional argument (dependency injection), ensuring to check for `undefined` (not truthiness) if the result can be null.
+
+## 2026-03-10 - Passing Calculated Time Objects
+**Learning:** Found `isStoreOpen` and `getTimeUntilClosing` both recalculating "yesterday's hours" during midnight crossover scenarios, even though `getStoreStatus` (the parent) could manage this.
+**Action:** Calculate the expensive derived data (yesterday's hours) once in the parent if needed, and pass it down as an optional argument. This prevents redundant `DateTime` parsing and operations.

@@ -9,7 +9,8 @@ import { DateTime } from "luxon";
 export const getTimeUntilClosing = (
   hours: OpenHours,
   now: DateTime,
-  todaysHours?: ReturnType<typeof getOpeningAndClosingTimes>
+  todaysHours?: ReturnType<typeof getOpeningAndClosingTimes>,
+  yesterdaysHoursFormatted?: ReturnType<typeof getOpeningAndClosingTimes>
 ): { timeUntilClosing: string; closingTime: DateTime } | null => {
   const todaysHoursFormatted =
     todaysHours !== undefined
@@ -31,12 +32,12 @@ export const getTimeUntilClosing = (
     };
   } else {
     // We're in yesterday's extended hours, need to get yesterday's closing time
-    const yesterdayName = now.minus({ days: 1 }).weekdayLong;
-    const yesterdaysHours = getOpeningAndClosingTimes(
-      hours,
-      yesterdayName,
-      now
-    );
+    let yesterdaysHours = yesterdaysHoursFormatted;
+
+    if (yesterdaysHours === undefined) {
+      const yesterdayName = now.minus({ days: 1 }).weekdayLong;
+      yesterdaysHours = getOpeningAndClosingTimes(hours, yesterdayName, now);
+    }
 
     if (
       yesterdaysHours &&

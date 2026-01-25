@@ -22,3 +22,7 @@
 ## 2026-03-08 - Hoisting Redundant Utility Calls
 **Learning:** Found `getStoreStatus` calling `getOpeningAndClosingTimes` multiple times (3x) for the same inputs within a single execution. This multiplied the cost of `DateTime` operations (Intl API) significantly.
 **Action:** Identify helper functions that are called multiple times with the same arguments. Calculate the result once in the parent and pass it down as an optional argument (dependency injection), ensuring to check for `undefined` (not truthiness) if the result can be null.
+
+## 2026-03-09 - Memoizing DateTime Creation
+**Learning:** `DateTime.fromObject` (or `.set()`) in Luxon is expensive (~48µs). In high-frequency render loops (e.g. 1000 items x 4 calls/item = 4000 calls), this blocks the main thread.
+**Action:** Use `WeakMap` to memoize utility functions that produce `DateTime` objects, especially when inputs (like `now`) change frequently but the output is stable based on the date part only.

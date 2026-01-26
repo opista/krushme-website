@@ -9,11 +9,11 @@ import { memo } from "react";
 function RestaurantPopup({
   restaurant,
   now,
-  isOpen,
+  isPopupOpen,
 }: {
   restaurant: RestaurantData;
   now?: DateTime;
-  isOpen?: boolean;
+  isPopupOpen?: boolean;
 }) {
   return (
     <Popup maxWidth={235} minWidth={235}>
@@ -68,13 +68,13 @@ export default memo(RestaurantPopup, (prev, next) => {
   // Always re-render if restaurant object reference changes
   if (prev.restaurant !== next.restaurant) return false;
 
-  // Always re-render if open state changes
-  if (prev.isOpen !== next.isOpen) return false;
+  // Always re-render if popup open state changes
+  if (prev.isPopupOpen !== next.isPopupOpen) return false;
 
   // If both are closed, skip re-render even if 'now' changes
   // Treat undefined as true (safe fallback) to ensure we don't break existing usage if any
-  const prevOpen = prev.isOpen ?? true;
-  const nextOpen = next.isOpen ?? true;
+  const prevOpen = prev.isPopupOpen ?? true;
+  const nextOpen = next.isPopupOpen ?? true;
 
   if (!prevOpen && !nextOpen) return true;
 

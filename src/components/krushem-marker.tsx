@@ -14,13 +14,13 @@ type Props = {
 };
 
 function KrushemMarker({ restaurant, radius, now }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
 
   const eventHandlers = useMemo(
     () => ({
-      popupopen: () => setIsOpen(true),
-      popupclose: () => setIsOpen(false),
+      popupopen: () => setIsPopupOpen(true),
+      popupclose: () => setIsPopupOpen(false),
     }),
     []
   );
@@ -34,7 +34,11 @@ function KrushemMarker({ restaurant, radius, now }: Props) {
       stroke={false}
       eventHandlers={eventHandlers}
     >
-      <RestaurantPopup restaurant={restaurant} now={now} isOpen={isOpen} />
+      <RestaurantPopup
+        restaurant={restaurant}
+        now={now}
+        isPopupOpen={isPopupOpen}
+      />
     </CircleMarker>
   );
 }

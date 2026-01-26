@@ -4,13 +4,16 @@ import OpenOrClosed from "./open-or-closed";
 import KrushemStatus from "./krushem-status";
 import { lastCheckedString } from "@/util/last-checked-string";
 import { DateTime } from "luxon";
+import { memo } from "react";
 
-export default function RestaurantPopup({
+function RestaurantPopup({
   restaurant,
   now,
+  isPopupOpen,
 }: {
   restaurant: RestaurantData;
   now?: DateTime;
+  isPopupOpen?: boolean;
 }) {
   return (
     <Popup maxWidth={235} minWidth={235}>
@@ -60,3 +63,21 @@ export default function RestaurantPopup({
     </Popup>
   );
 }
+
+export default memo(RestaurantPopup, (prev, next) => {
+  // Always re-render if restaurant object reference changes
+  if (prev.restaurant !== next.restaurant) return false;
+
+  // Always re-render if popup open state changes
+  if (prev.isPopupOpen !== next.isPopupOpen) return false;
+
+  // If both are closed, skip re-render even if 'now' changes
+  // Treat undefined as true (safe fallback) to ensure we don't break existing usage if any
+  const prevOpen = prev.isPopupOpen ?? true;
+  const nextOpen = next.isPopupOpen ?? true;
+
+  if (!prevOpen && !nextOpen) return true;
+
+  // If open, check if 'now' changed
+  return prev.now === next.now;
+});

@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useMemo, useState } from "react";
 import { CircleMarker } from "react-leaflet";
 import { RestaurantData } from "@/types";
 import RestaurantPopup from "./restaurant-popup";
@@ -14,7 +14,16 @@ type Props = {
 };
 
 function KrushemMarker({ restaurant, radius, now }: Props) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const krushemMeta = mapKrushemStatusToMeta(restaurant.krushemMachineStatus);
+
+  const eventHandlers = useMemo(
+    () => ({
+      popupopen: () => setIsPopupOpen(true),
+      popupclose: () => setIsPopupOpen(false),
+    }),
+    []
+  );
 
   return (
     <CircleMarker
@@ -23,8 +32,13 @@ function KrushemMarker({ restaurant, radius, now }: Props) {
       fillOpacity={1}
       radius={radius}
       stroke={false}
+      eventHandlers={eventHandlers}
     >
-      <RestaurantPopup restaurant={restaurant} now={now} />
+      <RestaurantPopup
+        restaurant={restaurant}
+        now={now}
+        isPopupOpen={isPopupOpen}
+      />
     </CircleMarker>
   );
 }

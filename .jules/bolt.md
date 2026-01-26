@@ -22,3 +22,7 @@
 ## 2026-03-08 - Hoisting Redundant Utility Calls
 **Learning:** Found `getStoreStatus` calling `getOpeningAndClosingTimes` multiple times (3x) for the same inputs within a single execution. This multiplied the cost of `DateTime` operations (Intl API) significantly.
 **Action:** Identify helper functions that are called multiple times with the same arguments. Calculate the result once in the parent and pass it down as an optional argument (dependency injection), ensuring to check for `undefined` (not truthiness) if the result can be null.
+
+## 2026-03-24 - Optimization Pattern: Memoizing Hidden Popups
+**Learning:** React-Leaflet renders children (Popups) eagerly. If these children depend on rapidly changing props (e.g., `now` time), they re-render continuously even when hidden/closed.
+**Action:** Use `React.memo` with a custom comparison function on the Popup content component. Track `isOpen` state in the parent Marker (via `popupopen`/`popupclose` events) and pass it down. If `isOpen` is false, return `true` in the comparison function to skip re-renders, regardless of other prop changes.

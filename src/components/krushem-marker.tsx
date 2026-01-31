@@ -25,6 +25,18 @@ function KrushemMarker({ restaurant, radius, now }: Props) {
     []
   );
 
+  const popup = useMemo(
+    () => (
+      <RestaurantPopup
+        restaurant={restaurant}
+        now={now}
+        isPopupOpen={isPopupOpen}
+      />
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [restaurant, isPopupOpen, isPopupOpen ? now : null]
+  );
+
   return (
     <CircleMarker
       center={[restaurant.coords.latitude, restaurant.coords.longitude]}
@@ -34,11 +46,7 @@ function KrushemMarker({ restaurant, radius, now }: Props) {
       stroke={false}
       eventHandlers={eventHandlers}
     >
-      <RestaurantPopup
-        restaurant={restaurant}
-        now={now}
-        isPopupOpen={isPopupOpen}
-      />
+      {popup}
     </CircleMarker>
   );
 }

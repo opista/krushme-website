@@ -3,7 +3,19 @@ import leaflet from "leaflet";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-const StatsControlImpl = leaflet.Control.extend({
+interface StatsControlOptions extends leaflet.ControlOptions {
+  percentage: number;
+}
+
+const StatsControlImpl = leaflet.Control.extend<
+  // Mixin properties
+  {
+    options: StatsControlOptions;
+    onAdd: (this: leaflet.Control & { options: StatsControlOptions }) => HTMLElement;
+  },
+  // Options type for constructor
+  StatsControlOptions
+>({
   options: {
     position: "topright",
     percentage: 0,
@@ -23,7 +35,6 @@ const StatsControlImpl = leaflet.Control.extend({
 
     return container;
   },
-  onRemove: function () {},
 });
 
 export default function StatsControl() {
@@ -39,7 +50,7 @@ export default function StatsControl() {
 
     const control = new StatsControlImpl({
       percentage: brokenPercentage,
-    } as leaflet.ControlOptions);
+    });
     map.addControl(control);
 
     return () => {

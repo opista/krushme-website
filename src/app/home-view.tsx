@@ -58,7 +58,7 @@ export default function HomeView({ data }: HomeViewProps) {
         <span>
           <a
             className="inline-block p-3 underline hover:underline-offset-2 text-sky-600 hover:text-sky-500 text-sm font-bold"
-            href="https://www.buymeacoffee.com/krushme"
+            href="https://www.buymeacoffee.com/opista"
             rel="nofollow"
             target="_blank"
           >

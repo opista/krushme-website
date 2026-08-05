@@ -1,5 +1,6 @@
 import {
   KrushemMachineStatus,
+  CompactRestaurantStatusesData,
   MappedRestaurantData,
   MappedRestaurantLocationsData,
   MappedRestaurantStatusesData,
@@ -11,6 +12,28 @@ const GIST_URL = `https://gist.githubusercontent.com/metacurb/${process.env.GIST
 type GistCommitsResponse = {
   version: string;
 }[];
+
+const decodeStatuses = (
+  data: MappedRestaurantStatusesData | CompactRestaurantStatusesData
+): MappedRestaurantStatusesData => {
+  if ("statuses" in data) return data;
+
+  const statusByCode = [
+    KrushemMachineStatus.Working,
+    KrushemMachineStatus.Broken,
+    KrushemMachineStatus.Unknown,
+  ] as const;
+  const [working, broken, unknown, total] = data.t;
+
+  return {
+    statuses: data.r.map(([id, status, checkedAt]) => ({
+      id,
+      krushemMachineStatus: statusByCode[status],
+      lastChecked: checkedAt === null ? undefined : checkedAt * 1000,
+    })),
+    stats: { working, broken, unknown, total },
+  };
+};
 
 const getGistFile = async <T>(
   commitHash: string | null,
@@ -38,10 +61,11 @@ export const getAllRestaurants = async (): Promise<MappedRestaurantData> => {
     })
     .catch(() => null);
 
-  const [locationsData, statusesData] = await Promise.all([
+  const [locationsData, statusPayload] = await Promise.all([
     getGistFile<MappedRestaurantLocationsData>(commitHash, "locations.json"),
-    getGistFile<MappedRestaurantStatusesData>(commitHash, "statuses.json"),
+    getGistFile<MappedRestaurantStatusesData | CompactRestaurantStatusesData>(commitHash, "statuses.json"),
   ]);
+  const statusesData = decodeStatuses(statusPayload);
 
   const statusesById = new Map(
     statusesData.statuses.map((status) => [status.id, status])

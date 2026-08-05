@@ -65,6 +65,13 @@ export type MappedRestaurantStatusesData = {
   stats: RestaurantStats;
 };
 
+export type CompactRestaurantStatusesData = {
+  v: 2;
+  r: [string, 0 | 1 | 2, number | null][];
+  t: [number, number, number, number];
+  u: number;
+};
+
 export type MachineStatsHistory = {
   version: 1;
   start: number | null;

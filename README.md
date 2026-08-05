@@ -72,4 +72,4 @@ npm run start
 
 ## Data Source
 
-Restaurant data is fetched from a GitHub Gist API. The app checks for the latest commit hash and fetches the corresponding restaurant data.
+Restaurant data is fetched from a GitHub Gist API. The app checks for the latest commit hash and fetches the corresponding static location and dynamic status data.

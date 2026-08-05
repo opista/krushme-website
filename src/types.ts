@@ -34,6 +34,16 @@ export type RestaurantData = {
   name: string;
 };
 
+export type RestaurantLocationData = Omit<
+  RestaurantData,
+  "krushemMachineStatus" | "lastChecked"
+>;
+
+export type RestaurantStatusData = Pick<
+  RestaurantData,
+  "id" | "krushemMachineStatus" | "lastChecked"
+>;
+
 export type RestaurantStats = {
   unknown: number;
   broken: number;
@@ -43,5 +53,14 @@ export type RestaurantStats = {
 
 export type MappedRestaurantData = {
   locations: RestaurantData[];
+  stats: RestaurantStats;
+};
+
+export type MappedRestaurantLocationsData = {
+  locations: RestaurantLocationData[];
+};
+
+export type MappedRestaurantStatusesData = {
+  statuses: RestaurantStatusData[];
   stats: RestaurantStats;
 };

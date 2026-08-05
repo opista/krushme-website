@@ -18,23 +18,11 @@ describe("getAllRestaurants", () => {
     );
     jest.spyOn(global, "fetch").mockResolvedValueOnce(
       response({
-        locations: [
-          {
-            id: "restaurant-1",
-            address: "1 High Street",
-            coords: { longitude: -1, latitude: 52 },
-            link: "https://www.kfc.co.uk/restaurant-1",
-            hours: [],
-            name: "KFC Test",
-          },
-          {
-            id: "restaurant-2",
-            address: "2 High Street",
-            coords: { longitude: -2, latitude: 53 },
-            link: "https://www.kfc.co.uk/restaurant-2",
-            hours: [],
-            name: "KFC Unknown",
-          },
+        v: 2,
+        u: 1_725_000_000,
+        r: [
+          ["restaurant-1", "KFC Test", "1 High Street", 52, -1, "/restaurant-1", []],
+          ["restaurant-2", "KFC Unknown", "2 High Street", 53, -2, "/restaurant-2", []],
         ],
       })
     );

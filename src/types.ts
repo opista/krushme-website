@@ -56,10 +56,6 @@ export type MappedRestaurantData = {
   stats: RestaurantStats;
 };
 
-export type MappedRestaurantLocationsData = {
-  locations: RestaurantLocationData[];
-};
-
 export type CompactRestaurantLocationsData = {
   v: 2;
   u: number;

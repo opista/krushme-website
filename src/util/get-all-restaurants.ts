@@ -3,9 +3,9 @@ import {
   CompactRestaurantStatusesData,
   CompactRestaurantLocationsData,
   MappedRestaurantData,
-  MappedRestaurantLocationsData,
   MappedRestaurantStatusesData,
   OpenHours,
+  RestaurantLocationData,
 } from "@/types";
 
 const GITHUB_API_URL = "https://api.github.com/gists";
@@ -32,21 +32,16 @@ const decodeHours = (
   }));
 
 const decodeLocations = (
-  data: MappedRestaurantLocationsData | CompactRestaurantLocationsData
-): MappedRestaurantLocationsData => {
-  if ("locations" in data) return data;
-
-  return {
-    locations: data.r.map(([id, name, address, latitude, longitude, path, hours]) => ({
+  data: CompactRestaurantLocationsData
+): RestaurantLocationData[] =>
+  data.r.map(([id, name, address, latitude, longitude, path, hours]) => ({
       id,
       name,
       address,
       coords: { latitude, longitude },
       link: `https://www.kfc.co.uk${path}`,
       hours: decodeHours(hours),
-    })),
-  };
-};
+    }));
 
 const decodeStatuses = (
   data: CompactRestaurantStatusesData
@@ -95,10 +90,10 @@ export const getAllRestaurants = async (): Promise<MappedRestaurantData> => {
     .catch(() => null);
 
   const [locationPayload, statusPayload] = await Promise.all([
-    getGistFile<MappedRestaurantLocationsData | CompactRestaurantLocationsData>(commitHash, "locations.json"),
+    getGistFile<CompactRestaurantLocationsData>(commitHash, "locations.json"),
     getGistFile<CompactRestaurantStatusesData>(commitHash, "statuses.json"),
   ]);
-  const locationsData = decodeLocations(locationPayload);
+  const locations = decodeLocations(locationPayload);
   const statusesData = decodeStatuses(statusPayload);
 
   const statusesById = new Map(
@@ -106,7 +101,7 @@ export const getAllRestaurants = async (): Promise<MappedRestaurantData> => {
   );
 
   return {
-    locations: locationsData.locations.map((location) => {
+    locations: locations.map((location) => {
       const status = statusesById.get(location.id);
 
       return {

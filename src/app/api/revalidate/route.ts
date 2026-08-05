@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
 
   try {
     revalidatePath("/");
+    revalidatePath("/stats");
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({ error: "Error revalidating" }, { status: 500 });

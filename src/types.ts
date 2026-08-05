@@ -64,3 +64,12 @@ export type MappedRestaurantStatusesData = {
   statuses: RestaurantStatusData[];
   stats: RestaurantStats;
 };
+
+export type MachineStatsHistory = {
+  version: 1;
+  start: number | null;
+  end: number | null;
+  intervalSeconds: 3600;
+  points: [number | null, number | null, number | null][];
+  updatedAt: string;
+};

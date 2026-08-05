@@ -25,7 +25,7 @@ export default function HomeView({ data }: HomeViewProps) {
 
   return (
     <div className="flex flex-col max-w-7xl mx-auto relative h-svh">
-      <SiteHeader fixed right={<div className="hidden sm:block"><Time lastChecked={mostRecentCheck} /></div>} />
+      <SiteHeader fixed wide right={<div className="hidden sm:block"><Time lastChecked={mostRecentCheck} /></div>} />
 
       <div className="absolute top-16 bottom-11 w-full">
         <RestaurantProvider

@@ -60,6 +60,20 @@ export type MappedRestaurantLocationsData = {
   locations: RestaurantLocationData[];
 };
 
+export type CompactRestaurantLocationsData = {
+  v: 2;
+  u: number;
+  r: [
+    string,
+    string,
+    string,
+    number,
+    number,
+    string,
+    [0 | 1 | 2 | 3, number[]][]
+  ][];
+};
+
 export type MappedRestaurantStatusesData = {
   statuses: RestaurantStatusData[];
   stats: RestaurantStats;

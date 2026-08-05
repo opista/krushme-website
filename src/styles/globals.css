@@ -63,3 +63,13 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
+
+@media (min-width: 1024px) {
+  .leaflet-left {
+    left: calc((100% - 64rem) / 2) !important;
+  }
+
+  .leaflet-right {
+    right: calc((100% - 64rem) / 2) !important;
+  }
+}

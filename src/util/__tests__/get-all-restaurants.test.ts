@@ -40,14 +40,10 @@ describe("getAllRestaurants", () => {
     );
     jest.spyOn(global, "fetch").mockResolvedValueOnce(
       response({
-        statuses: [
-          {
-            id: "restaurant-1",
-            krushemMachineStatus: KrushemMachineStatus.Working,
-            lastChecked: 1_725_000_000_000,
-          },
-        ],
-        stats: { working: 1, broken: 0, unknown: 1, total: 2 },
+        v: 2,
+        r: [["restaurant-1", 0, 1_725_000_000]],
+        t: [1, 0, 1, 2],
+        u: 1_725_000_000,
       })
     );
 

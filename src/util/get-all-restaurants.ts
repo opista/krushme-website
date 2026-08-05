@@ -14,10 +14,8 @@ type GistCommitsResponse = {
 }[];
 
 const decodeStatuses = (
-  data: MappedRestaurantStatusesData | CompactRestaurantStatusesData
+  data: CompactRestaurantStatusesData
 ): MappedRestaurantStatusesData => {
-  if ("statuses" in data) return data;
-
   const statusByCode = [
     KrushemMachineStatus.Working,
     KrushemMachineStatus.Broken,
@@ -63,7 +61,7 @@ export const getAllRestaurants = async (): Promise<MappedRestaurantData> => {
 
   const [locationsData, statusPayload] = await Promise.all([
     getGistFile<MappedRestaurantLocationsData>(commitHash, "locations.json"),
-    getGistFile<MappedRestaurantStatusesData | CompactRestaurantStatusesData>(commitHash, "statuses.json"),
+    getGistFile<CompactRestaurantStatusesData>(commitHash, "statuses.json"),
   ]);
   const statusesData = decodeStatuses(statusPayload);
 

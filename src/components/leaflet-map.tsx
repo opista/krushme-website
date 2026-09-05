@@ -9,10 +9,14 @@ import storage, { Settings } from "@/util/storage";
 
 type Props = {
   children?: ReactNode;
+  cartoApiKey?: string;
 };
 
-export default function LeafletMap({ children }: Props) {
+export default function LeafletMap({ children, cartoApiKey }: Props) {
   const [settings, setSettings] = useState<Settings | null>(null);
+  const tileUrl = `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${
+    cartoApiKey ? `?key=${encodeURIComponent(cartoApiKey)}` : ""
+  }`;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -31,8 +35,7 @@ export default function LeafletMap({ children }: Props) {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        subdomains="abcd"
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+        url={tileUrl}
       />
       {children}
       <LocateControl />

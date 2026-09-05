@@ -14,7 +14,7 @@ type Props = {
 
 export default function LeafletMap({ children, cartoApiKey }: Props) {
   const [settings, setSettings] = useState<Settings | null>(null);
-  const tileUrl = `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png${
+  const tileUrl = `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png${
     cartoApiKey ? `?key=${encodeURIComponent(cartoApiKey)}` : ""
   }`;
 

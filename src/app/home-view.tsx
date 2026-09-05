@@ -15,9 +15,10 @@ const RestaurantMap = dynamic(() => import("@/components/restaurant-map"), {
 
 type HomeViewProps = {
   data: MappedRestaurantData;
+  cartoApiKey?: string;
 };
 
-export default function HomeView({ data }: HomeViewProps) {
+export default function HomeView({ data, cartoApiKey }: HomeViewProps) {
   const mostRecentCheck = useMemo(
     () => getMostRecentCheck(data?.locations),
     [data?.locations]
@@ -32,7 +33,7 @@ export default function HomeView({ data }: HomeViewProps) {
           restaurants={data?.locations || []}
           stats={data?.stats}
         >
-          <RestaurantMap />
+          <RestaurantMap cartoApiKey={cartoApiKey} />
         </RestaurantProvider>
       </div>
 

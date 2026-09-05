@@ -1,10 +1,20 @@
-import { LatLngExpression } from 'leaflet'
-
 const SETTINGS_KEY = "settings";
 
+export type MapCenter =
+  | [latitude: number, longitude: number]
+  | { lat: number; lng: number };
+
 export type Settings = {
-  center: LatLngExpression;
+  center: MapCenter;
   zoom: number;
+};
+
+export const getMapCenter = (center: MapCenter) => {
+  if (Array.isArray(center)) {
+    return { latitude: center[0], longitude: center[1] };
+  }
+
+  return { latitude: center.lat, longitude: center.lng };
 };
 
 const storage = {

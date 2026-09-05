@@ -14,7 +14,7 @@ A web application that helps you check if your local KFC Krushem machine is work
 - **Framework**: Next.js 16
 - **Language**: TypeScript
 - **UI**: React 19, Tailwind CSS
-- **Maps**: Leaflet, React Leaflet
+- **Maps**: MapLibre GL JS, React Map GL
 - **Date/Time**: Luxon
 
 ## Getting Started

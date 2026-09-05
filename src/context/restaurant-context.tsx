@@ -9,6 +9,7 @@ import {
 } from "react";
 
 type RestaurantContext = {
+  activeFilters: FilterState;
   restaurants: RestaurantData[];
   stats: RestaurantStats | null;
   setFilter: (filter: keyof FilterState) => void;
@@ -21,6 +22,11 @@ type FilterState = {
 };
 
 const RestaurantContext = createContext<RestaurantContext>({
+  activeFilters: {
+    showWorking: true,
+    showBroken: true,
+    showUnknown: true,
+  },
   restaurants: [],
   stats: { working: 0, broken: 0, unknown: 0, total: 0 },
   setFilter: () => {},
@@ -75,11 +81,12 @@ function RestaurantProvider({
 
   const value = useMemo(
     () => ({
+      activeFilters: filters,
       restaurants: filteredRestaurants,
       setFilter,
       stats,
     }),
-    [filteredRestaurants, setFilter, stats]
+    [filteredRestaurants, filters, setFilter, stats]
   );
 
   return (

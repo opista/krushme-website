@@ -72,6 +72,9 @@ node_modules/
 .next
 out
 
+# Generated MapLibre worker assets
+public/maplibre/
+
 # production
 build
 

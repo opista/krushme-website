@@ -14,7 +14,5 @@ export const metadata: Metadata = {
 export default async function Home() {
   const data = await getAllRestaurants();
 
-  return (
-    <HomeView data={data} cartoApiKey={process.env.CARTO_API_KEY} />
-  );
+  return <HomeView data={data} />;
 }

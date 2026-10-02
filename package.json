@@ -37,6 +37,6 @@
     "eslint": "^10.9.1",
     "eslint-config-next": "^16.2.12",
     "postcss": "^8.5.28",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.3"
   }
 }

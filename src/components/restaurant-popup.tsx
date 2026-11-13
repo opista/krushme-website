@@ -1,5 +1,6 @@
 import { RestaurantData } from "@/types";
 import { Popup } from "react-map-gl/maplibre";
+import Button from "./button";
 import OpenOrClosed from "./open-or-closed";
 import KrushemStatus from "./krushem-status";
 import { lastCheckedString } from "@/util/last-checked-string";
@@ -61,14 +62,14 @@ function RestaurantPopup({
             now={now}
           />
         </div>
-        <a
-          className="inline-block mb-2"
+        <Button
+          className="mb-2"
           href={restaurant.link}
           target="_blank"
           rel="noopener noreferrer"
         >
           Order online
-        </a>
+        </Button>
         <KrushemStatus status={restaurant.krushemMachineStatus} />
         <div className="mt-2 text-xs text-gray-400">
           {lastCheckedString(restaurant.lastChecked)}

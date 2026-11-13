@@ -1,8 +1,9 @@
 @import 'tailwindcss';
 
-@theme {
+@theme inline {
   --color-kfc: #e3012b;
   --font-friz: "Friz Quadrata Std", var(--font-serif);
+  --font-rokkitt: var(--font-rokkitt-google), var(--font-serif);
 }
 
 @font-face {

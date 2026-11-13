@@ -17,7 +17,7 @@ export default function SiteHeader({
         className={`mx-auto flex items-center justify-between gap-4 px-4 py-4 ${wide ? "max-w-7xl" : "max-w-5xl"}`}
       >
         <div>
-          <h1 className="font-friz font-bold italic text-lg uppercase text-kfc mb-0 leading-none">
+          <h1 className="mb-0 font-rokkitt text-xl font-extrabold italic uppercase leading-none text-kfc">
             <a href="/">Krushme</a>
           </h1>
           <p className="p-0 leading-none text-sm">

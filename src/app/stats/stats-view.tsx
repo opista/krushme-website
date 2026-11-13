@@ -3,6 +3,7 @@
 import { MachineStatsHistory } from "@/types";
 import { useMemo, useState } from "react";
 import MachineStatsChart from "./machine-stats-chart";
+import Button from "@/components/button";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 
@@ -82,12 +83,9 @@ export default function StatsView({ data }: { data: MachineStatsHistory }) {
               shows how many Krunch Shake (RIP Krushems) machines were working,
               broken, or could not be confirmed at that hour.
             </p>
-            <a
-              className="mt-5 inline-flex rounded-full border border-kfc px-4 py-2 text-sm font-bold text-kfc transition hover:bg-kfc hover:text-white"
-              href="/"
-            >
+            <Button className="mt-5" href="/">
               Back to map
-            </a>
+            </Button>
           </div>
           <aside className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm lg:col-span-4">
             <div className="flex items-baseline justify-between gap-3">
